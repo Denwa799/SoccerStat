@@ -1,3 +1,16 @@
-.App {
+:root {
+    --primary-color: #1976d2;
+    --light-primary-color: #64b5f6;
+    --dark-primary-color: #0d47a1;
+    --accent-color: #ffd600;
+    --primary-text: #212121;
+    --secondary-text: #757575;
+    --text: #FFFFFF;
+    --divider-color: #F1F1F1;
+}
 
+.App {
+    background-color: var(--divider-color);
+    min-height: 100vh;
+    color: var(--primary-text);
 }
