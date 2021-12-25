@@ -10,7 +10,6 @@ const { Meta } = Card;
 
 const CompetitionList: React.FC = () => {
   const { competitions, error, loading } = useTypedSelector((state) => state.competitionList);
-  console.log(competitions);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,22 +27,26 @@ const CompetitionList: React.FC = () => {
   return (
     <div className={styles.CompetitionList}>
       <Row className={styles.Cards} gutter={[16, 16]}>
-        {competitions.map((competition) => (
-          <Col key={competition.id} span={8}>
-            <Card
-              hoverable
-              cover={
-                <img
-                  className={styles.CardImg}
-                  src={competition.emblemUrl ? competition.emblemUrl : noImage}
-                  alt={competition.code}
-                />
-              }
-            >
-              <Meta title={competition.name} />
-            </Card>
-          </Col>
-        ))}
+        {competitions.length != 0 ? (
+          competitions.map((competition) => (
+            <Col key={competition.id} span={8}>
+              <Card
+                hoverable
+                cover={
+                  <img
+                    className={styles.CardImg}
+                    src={competition.emblemUrl ? competition.emblemUrl : noImage}
+                    alt={competition.code}
+                  />
+                }
+              >
+                <Meta title={competition.name} />
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <h1>Сегодня нет матчей</h1>
+        )}
       </Row>
     </div>
   );

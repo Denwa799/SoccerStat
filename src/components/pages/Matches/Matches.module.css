@@ -1,0 +1,8 @@
+.Matches {
+    padding-top: 20px;
+}
+
+.Title {
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--primary-color);
+}
