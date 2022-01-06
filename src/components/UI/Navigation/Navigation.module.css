@@ -1,0 +1,9 @@
+.Navigation {
+    background-color: var(--text);
+}
+
+@media (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+}

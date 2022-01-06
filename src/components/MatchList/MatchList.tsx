@@ -22,6 +22,13 @@ const MatchList: React.FC = () => {
   if (error) {
     return <h1>{error}</h1>;
   }
+  /*
+  Статусы:
+  POSTPONED
+  IN_PLAY
+  SCHEDULED
+  */
+
   return (
     <div className={styles.MatchList}>
       <Row className={styles.Cards} gutter={[16, 16]}>
@@ -29,7 +36,14 @@ const MatchList: React.FC = () => {
           matches.map((match) => (
             <Col key={match.id} span={8}>
               <Card hoverable>
-                <Meta title={`${match.homeTeam.name} vs ${match.awayTeam.name}`} />
+                <Meta
+                  title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
+                  description={
+                    match.status == 'FINISHED'
+                      ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
+                      : 'Статус: ' + match.status
+                  }
+                />
               </Card>
             </Col>
           ))
