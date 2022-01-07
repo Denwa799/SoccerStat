@@ -1,0 +1,16 @@
+.TeamList {
+    padding-top: 20px;
+}
+
+.Cards {
+    text-align: center;
+}
+
+.Card {
+    padding: 10px;
+}
+
+.CardImg {
+    width: 369px;
+    height: 199px;
+}

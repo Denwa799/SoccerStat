@@ -3,7 +3,7 @@ import styles from './Navbar.module.css';
 import Container from '../../Container/Container';
 import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { MAIN_ROUTE, MATCHES_ROUTE } from '../../../../utils/routes';
+import { MAIN_ROUTE, MATCHES_ROUTE, TEAMS_ROUTE } from '../../../../utils/routes';
 
 const Navbar = () => {
   return (
@@ -20,7 +20,7 @@ const Navbar = () => {
             <NavLink to={MATCHES_ROUTE}>МАТЧИ</NavLink>
           </Menu.Item>
           <Menu.Item key={3}>
-            <NavLink to={MAIN_ROUTE}>КОМАНДЫ</NavLink>
+            <NavLink to={TEAMS_ROUTE}>КОМАНДЫ</NavLink>
           </Menu.Item>
         </Menu>
       </Container>

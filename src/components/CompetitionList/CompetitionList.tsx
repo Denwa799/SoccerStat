@@ -45,7 +45,7 @@ const CompetitionList: React.FC = () => {
             </Col>
           ))
         ) : (
-          <h1>Сегодня нет матчей</h1>
+          <h1>Соревнования не найдены</h1>
         )}
       </Row>
     </div>
