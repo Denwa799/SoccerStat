@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Teams.module.css';
 import Container from '../../UI/Container/Container';
 import { Typography } from 'antd';
-import TeamList from '../../TeamList/TeamList';
+import TeamList from './TeamList/TeamList';
 
 const { Title } = Typography;
 

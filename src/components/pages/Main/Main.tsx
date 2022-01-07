@@ -1,5 +1,5 @@
 import React from 'react';
-import CompetitionList from '../../CompetitionList/CompetitionList';
+import CompetitionList from './CompetitionList/CompetitionList';
 import styles from './Main.module.css';
 import Container from '../../UI/Container/Container';
 import { Typography } from 'antd';

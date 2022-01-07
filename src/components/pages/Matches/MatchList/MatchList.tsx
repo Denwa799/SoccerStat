@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styles from './MatchList.module.css';
 import { Card, Col, Row } from 'antd';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { fetchMatches } from '../../store/action-creators/MatchList';
+import { fetchMatches } from '../../../../store/action-creators/MatchList';
 
 const { Meta } = Card;
 

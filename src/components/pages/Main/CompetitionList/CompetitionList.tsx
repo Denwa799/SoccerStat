@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styles from './CompetitionList.module.css';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { Card, Col, Row } from 'antd';
-import noImage from '../../assets/img/noImage.jpg';
+import noImage from '../../../../assets/img/noImage.jpg';
 import { useDispatch } from 'react-redux';
-import { fetchCompetitions } from '../../store/action-creators/CompetitionList';
+import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
 
 const { Meta } = Card;
 

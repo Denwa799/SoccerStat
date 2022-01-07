@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styles from './TeamList.module.css';
 import { Card, Col, Row } from 'antd';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { fetchTeams } from '../../store/action-creators/TeamList';
-import noImage from '../../assets/img/noImage.jpg';
+import { fetchTeams } from '../../../../store/action-creators/TeamList';
+import noImage from '../../../../assets/img/noImage.jpg';
 
 const { Meta } = Card;
 

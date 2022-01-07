@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Matches.module.css';
 import Container from '../../UI/Container/Container';
 import { Typography } from 'antd';
-import MatchList from '../../MatchList/MatchList';
+import MatchList from './MatchList/MatchList';
 
 const { Title } = Typography;
 
