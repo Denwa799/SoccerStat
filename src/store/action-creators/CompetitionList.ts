@@ -19,6 +19,12 @@ export const fetchCompetitions = () => {
         payload: response.data.competitions,
       });
     } catch (e) {
+      // if (e.response.status === 429) {
+      //   return dispatch({
+      //     type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
+      //     payload: 'Превышен лимит на запросы',
+      //   });
+      // }
       dispatch({
         type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
         payload: 'Произошла ошибка при загрузке' + ' списка соревнований',

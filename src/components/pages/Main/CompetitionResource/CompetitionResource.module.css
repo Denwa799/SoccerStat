@@ -1,0 +1,14 @@
+.CompetitionResource {
+    padding-top: 20px;
+}
+
+.Title {
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.loading {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
