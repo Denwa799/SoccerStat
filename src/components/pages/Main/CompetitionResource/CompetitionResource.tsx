@@ -32,10 +32,16 @@ const CompetitionResource: React.FC = () => {
     return <h1 className={styles.loading}>{error}</h1>;
   }
 
+  console.log(competition);
+
   return (
     <div className={styles.CompetitionResource}>
       <Container>
-        <Title className={styles.Title}>{competition.name}</Title>
+        {Object.keys(competition).length != 0 ? (
+          <Title className={styles.Title}>{competition.competition.name}</Title>
+        ) : (
+          <h1>Соревнование не найдено</h1>
+        )}
       </Container>
     </div>
   );

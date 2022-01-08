@@ -18,17 +18,23 @@ export const fetchCompetitions = () => {
         type: CompetitionsActionTypes.FETCH_COMPETITIONS_SUCCESS,
         payload: response.data.competitions,
       });
-    } catch (e) {
-      // if (e.response.status === 429) {
-      //   return dispatch({
-      //     type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
-      //     payload: 'Превышен лимит на запросы',
-      //   });
-      // }
-      dispatch({
-        type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
-        payload: 'Произошла ошибка при загрузке' + ' списка соревнований',
-      });
+    } catch (e: any) {
+      if (e.response.status === 429) {
+        return dispatch({
+          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
+          payload: 'Превышен лимит на запросы',
+        });
+      } else if (e.response.status === 403) {
+        return dispatch({
+          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
+          payload: 'Список соревнований не входит в бесплатный тариф',
+        });
+      } else {
+        dispatch({
+          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
+          payload: 'Произошла ошибка при загрузке' + ' списка соревнований',
+        });
+      }
     }
   };
 };

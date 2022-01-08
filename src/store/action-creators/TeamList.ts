@@ -18,11 +18,23 @@ export const fetchTeams = () => {
         type: TeamsActionTypes.FETCH_TEAMS_SUCCESS,
         payload: response.data.teams,
       });
-    } catch (e) {
-      dispatch({
-        type: TeamsActionTypes.FETCH_TEAMS_ERROR,
-        payload: 'Произошла ошибка при загрузке' + ' списка команд',
-      });
+    } catch (e: any) {
+      if (e.response.status === 429) {
+        return dispatch({
+          type: TeamsActionTypes.FETCH_TEAMS_ERROR,
+          payload: 'Превышен лимит на запросы',
+        });
+      } else if (e.response.status === 403) {
+        return dispatch({
+          type: TeamsActionTypes.FETCH_TEAMS_ERROR,
+          payload: 'Список команд не входит в бесплатный тариф',
+        });
+      } else {
+        dispatch({
+          type: TeamsActionTypes.FETCH_TEAMS_ERROR,
+          payload: 'Произошла ошибка при загрузке' + ' списка команд',
+        });
+      }
     }
   };
 };
