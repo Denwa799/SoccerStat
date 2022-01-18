@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { MAIN_ROUTE, MATCHES_ROUTE, TEAMS_ROUTE, COMPETITION_ID_ROUTE } from '../../utils/routes';
+import CompetitionResource from '../pages/Main/CompetitionResource/CompetitionResource';
 import Main from '../pages/Main/Main';
 import Matches from '../pages/Matches/Matches';
 import Teams from '../pages/Teams/Teams';
-import CompetitionResource from '../pages/Main/CompetitionResource/CompetitionResource';
 
 const AppRouter: React.FC = () => {
   return (

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { CompetitionResourceAction, CompetitionActionTypes } from '../../types/Competition';
 
-export const fetchCompetition = (id: number) => {
+export const fetchCompetition = (id: number, dateFrom: string, dateTo: string) => {
   return async (dispatch: Dispatch<CompetitionResourceAction>) => {
     try {
       dispatch({ type: CompetitionActionTypes.FETCH_COMPETITION });
@@ -11,6 +11,10 @@ export const fetchCompetition = (id: number) => {
         {
           headers: {
             'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
+          },
+          params: {
+            dateFrom: dateFrom,
+            dateTo: dateTo,
           },
         }
       );

@@ -4,10 +4,12 @@ import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchCompetition } from '../../../../store/action-creators/CompetitionResource';
 import { useParams } from 'react-router-dom';
-import { Typography, Table } from 'antd';
+import { Typography, Table, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
+import moment from 'moment';
 
 const { Title } = Typography;
+const { RangePicker } = DatePicker;
 
 interface CompetitionResourceParams {
   id: string;
@@ -77,12 +79,26 @@ const CompetitionResource: React.FC = () => {
     },
   ];
 
+  function onFilterChange(dates: any, dateStrings: any) {
+    // @ts-ignore
+    dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
+    console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+  }
+
   return (
     <div className={styles.CompetitionResource}>
       <Container>
         {Object.keys(competition).length != 0 ? (
           <div>
             <Title className={styles.Title}>{competition.competition.name}</Title>
+            <RangePicker
+              className={styles.rangeFilter}
+              ranges={{
+                Today: [moment(), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+              }}
+              onChange={onFilterChange}
+            />
             <Table columns={columns} dataSource={dataSource} pagination={false} />
           </div>
         ) : (
