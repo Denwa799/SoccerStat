@@ -3,7 +3,7 @@ import styles from './CompetitionResource.module.css';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchCompetition } from '../../../../store/action-creators/CompetitionResource';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Typography, Table, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
 import moment from 'moment';
@@ -19,13 +19,16 @@ const CompetitionResource: React.FC = () => {
   const { competition, error, loading } = useTypedSelector((state) => state.competitionResource);
   const dispatch = useDispatch();
   const [dataSource, setDataSource] = useState<any[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // @ts-ignore
   const params = useParams<CompetitionResourceParams>();
 
   useEffect(() => {
+    const dateFromParam = searchParams.get('dateFrom') || '';
+    const dateToParam = searchParams.get('dateTo') || '';
     // @ts-ignore
-    dispatch(fetchCompetition(params.id));
+    dispatch(fetchCompetition(params.id, dateFromParam, dateToParam));
   }, []);
 
   useEffect(() => {
@@ -42,6 +45,13 @@ const CompetitionResource: React.FC = () => {
       setDataSource(matches);
     }
   }, [competition]);
+
+  function onFilterChange(dates: any, dateStrings: any) {
+    setSearchParams({ dateFrom: dateStrings[0], dateTo: dateStrings[1] });
+
+    // @ts-ignore
+    dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
+  }
 
   if (loading) {
     return <h1 className={styles.loading}>Идет загрузка...</h1>;
@@ -78,12 +88,6 @@ const CompetitionResource: React.FC = () => {
       key: 'score',
     },
   ];
-
-  function onFilterChange(dates: any, dateStrings: any) {
-    // @ts-ignore
-    dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
-    console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
-  }
 
   return (
     <div className={styles.CompetitionResource}>
