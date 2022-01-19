@@ -35,6 +35,7 @@ const CompetitionResource: React.FC = () => {
     if (Object.keys(competition).length != 0) {
       const matches = competition.matches.map((match: any) => {
         return {
+          key: match.id,
           status: match.status,
           date: `${new Date(match.utcDate).toLocaleString()} `,
           homeTeam: match.homeTeam.name,
