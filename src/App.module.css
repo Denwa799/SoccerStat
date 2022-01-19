@@ -5,8 +5,9 @@
     --accent-color: #ffd600;
     --primary-text: #212121;
     --secondary-text: #757575;
-    --text: #FFFFFF;
-    --divider-color: #F1F1F1;
+    --third-text: #bfbfbf;
+    --text: #ffffff;
+    --divider-color: #f1f1f1;
 }
 
 .App {
