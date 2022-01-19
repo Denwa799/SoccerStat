@@ -5,7 +5,7 @@ import { Card, Col, Row } from 'antd';
 import noImage from '../../../../assets/img/noImage.jpg';
 import { useDispatch } from 'react-redux';
 import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
@@ -14,8 +14,10 @@ const CompetitionList: React.FC = () => {
   const { competitions, error, loading } = useTypedSelector((state) => state.competitionList);
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramsName = searchParams.get('name') || '';
+  const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
   const filtredCompetitions = competitions.filter((competition) => {
     return competition.name.toLowerCase().includes(value.toLocaleLowerCase());
@@ -25,6 +27,10 @@ const CompetitionList: React.FC = () => {
     dispatch(fetchCompetitions());
   }, []);
 
+  useEffect(() => {
+    setValue(paramsName.replace(/-/g, ' '));
+  }, [paramsName]);
+
   if (loading) {
     return <h1>Идет загрузка...</h1>;
   }
@@ -33,8 +39,14 @@ const CompetitionList: React.FC = () => {
     return <h1>{error}</h1>;
   }
 
+  const itemChangeHandler = (e: any) => {
+    setValue(e.target.value);
+    setSearchParams({ name: e.target.value.replace(/ /g, '-') });
+  };
+
   const itemClickHandler = (e: any) => {
-    setValue(e.target.textContent);
+    setSearchParams({ name: e.target.textContent.replace(/ /g, '-') });
+    setValue(paramsName.replace(/-/g, ' '));
     setIsOpen(!isOpen);
   };
 
@@ -52,7 +64,7 @@ const CompetitionList: React.FC = () => {
               placeholder="Введите название соревнования..."
               className={styles.searchInput}
               value={value}
-              onChange={(event) => setValue(event.target.value)}
+              onChange={itemChangeHandler}
               onClick={inputClickHandler}
             />
             <ul className={styles.autocomplete}>
