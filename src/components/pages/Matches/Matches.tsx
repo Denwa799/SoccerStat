@@ -10,7 +10,7 @@ const Matches: React.FC = () => {
   return (
     <div className={styles.Matches}>
       <Container>
-        <Title className={styles.Title}>Список матчей на данный момент</Title>
+        <Title className={styles.Title}>Список матчей на сегодня</Title>
         <MatchList />
       </Container>
     </div>
