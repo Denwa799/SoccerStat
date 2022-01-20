@@ -6,7 +6,7 @@ import noImage from '../../../../assets/img/noImage.jpg';
 import { useDispatch } from 'react-redux';
 import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
 import { Link, useSearchParams } from 'react-router-dom';
-import { SearchOutlined } from '@ant-design/icons';
+import SearchBar from '../../../UI/SearchBar/SearchBar';
 
 const { Meta } = Card;
 
@@ -58,30 +58,16 @@ const CompetitionList: React.FC = () => {
     <div className={styles.CompetitionList}>
       <Row>
         <Col span={7}>
-          <form className={styles.searchForm}>
-            <input
-              type="text"
-              placeholder="Введите название соревнования..."
-              className={styles.searchInput}
-              value={value}
-              onChange={itemChangeHandler}
-              onClick={inputClickHandler}
-            />
-            <ul className={styles.autocomplete}>
-              {competitions.length != 0 && value && isOpen
-                ? filtredCompetitions.map((competition) => (
-                    <li
-                      key={competition.id}
-                      className={styles.autocompleteItem}
-                      onClick={itemClickHandler}
-                    >
-                      {competition.name}
-                    </li>
-                  ))
-                : null}
-            </ul>
-            <SearchOutlined className={styles.searchIcn} />
-          </form>
+          <SearchBar
+            placeholder={'Введите название соревнования...'}
+            value={value}
+            inputOnChange={itemChangeHandler}
+            inputOnClick={inputClickHandler}
+            array={competitions}
+            isOpen={isOpen}
+            filtredArray={filtredCompetitions}
+            itemOnClick={itemClickHandler}
+          />
         </Col>
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
