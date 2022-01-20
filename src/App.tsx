@@ -3,12 +3,17 @@ import 'antd/dist/antd.css';
 import AppRouter from './components/AppRouter/AppRouter';
 import styles from './App.module.css';
 import Navigation from './components/UI/Navigation/Navigation';
+import { BackTop } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
 
 const App: React.FC = () => {
   return (
     <div className={styles.App}>
       <Navigation />
       <AppRouter />
+      <BackTop>
+        <ArrowUpOutlined className={styles.BackTop} />
+      </BackTop>
     </div>
   );
 };
