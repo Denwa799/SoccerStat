@@ -22,12 +22,6 @@ const MatchList: React.FC = () => {
   if (error) {
     return <h1>{error}</h1>;
   }
-  /*
-  Статусы:
-  POSTPONED
-  IN_PLAY
-  SCHEDULED
-  */
 
   return (
     <div className={styles.MatchList}>

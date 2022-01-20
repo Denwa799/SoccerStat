@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { fetchTeams } from '../../../../store/action-creators/TeamList';
 import noImage from '../../../../assets/img/noImage.jpg';
 import SearchBar from '../../../UI/SearchBar/SearchBar';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -74,19 +74,21 @@ const TeamList: React.FC = () => {
         {teams.length != 0 ? (
           filteredTeams.map((team) => (
             <Col key={team.id} span={8}>
-              <Card
-                className={styles.Card}
-                hoverable
-                cover={
-                  <img
-                    className={styles.CardImg}
-                    src={team.crestUrl ? team.crestUrl : noImage}
-                    alt={team.tla}
-                  />
-                }
-              >
-                <Meta title={team.name} />
-              </Card>
+              <Link to={`${team.id}`}>
+                <Card
+                  className={styles.Card}
+                  hoverable
+                  cover={
+                    <img
+                      className={styles.CardImg}
+                      src={team.crestUrl ? team.crestUrl : noImage}
+                      alt={team.tla}
+                    />
+                  }
+                >
+                  <Meta title={team.name} />
+                </Card>
+              </Link>
             </Col>
           ))
         ) : (
