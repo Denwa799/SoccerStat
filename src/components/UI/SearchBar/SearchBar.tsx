@@ -9,7 +9,7 @@ interface SearchBar {
   inputOnClick: () => void;
   array: string[];
   isOpen: boolean;
-  filtredArray: string[];
+  filteredArray: string[];
   itemOnClick: (e: any) => void;
 }
 
@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBar> = (props) => {
       />
       <ul className={styles.autocomplete}>
         {props.array.length != 0 && props.value && props.isOpen
-          ? props.filtredArray.map((item: any) => (
+          ? props.filteredArray.map((item: any) => (
               <li key={item.id} className={styles.autocompleteItem} onClick={props.itemOnClick}>
                 {item.name}
               </li>

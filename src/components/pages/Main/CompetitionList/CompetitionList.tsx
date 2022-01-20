@@ -19,7 +19,7 @@ const CompetitionList: React.FC = () => {
   const paramsName = searchParams.get('name') || '';
   const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
-  const filtredCompetitions = competitions.filter((competition) => {
+  const filteredCompetitions = competitions.filter((competition) => {
     return competition.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
 
@@ -65,14 +65,14 @@ const CompetitionList: React.FC = () => {
             inputOnClick={inputClickHandler}
             array={competitions}
             isOpen={isOpen}
-            filtredArray={filtredCompetitions}
+            filteredArray={filteredCompetitions}
             itemOnClick={itemClickHandler}
           />
         </Col>
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
         {competitions.length != 0 ? (
-          filtredCompetitions.map((competition) => (
+          filteredCompetitions.map((competition) => (
             <Col key={competition.id} span={8}>
               <Link to={`${competition.id}`}>
                 <Card
