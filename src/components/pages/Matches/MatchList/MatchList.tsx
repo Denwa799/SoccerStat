@@ -5,6 +5,7 @@ import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchMatches } from '../../../../store/action-creators/MatchList';
 import noImage from '../../../../assets/img/noImage.jpg';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -30,27 +31,31 @@ const MatchList: React.FC = () => {
         {matches.length != 0 ? (
           matches.map((match) => (
             <Col key={match.id} span={8}>
-              <Card
-                hoverable
-                cover={
-                  <img
-                    className={styles.CardImg}
-                    src={
-                      match.competition.area.ensignUrl ? match.competition.area.ensignUrl : noImage
-                    }
-                    alt={match.competition.area.code}
-                  />
-                }
-              >
-                <Meta
-                  title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
-                  description={
-                    match.status == 'FINISHED'
-                      ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
-                      : 'Статус: ' + match.status
+              <Link to={`${match.id}`}>
+                <Card
+                  hoverable
+                  cover={
+                    <img
+                      className={styles.CardImg}
+                      src={
+                        match.competition.area.ensignUrl
+                          ? match.competition.area.ensignUrl
+                          : noImage
+                      }
+                      alt={match.competition.area.code}
+                    />
                   }
-                />
-              </Card>
+                >
+                  <Meta
+                    title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
+                    description={
+                      match.status == 'FINISHED'
+                        ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
+                        : 'Статус: ' + match.status
+                    }
+                  />
+                </Card>
+              </Link>
             </Col>
           ))
         ) : (
