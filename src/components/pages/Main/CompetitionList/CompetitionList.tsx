@@ -57,7 +57,7 @@ const CompetitionList: React.FC = () => {
   return (
     <div className={styles.CompetitionList}>
       <Row>
-        <Col span={7}>
+        <Col xl={7} lg={8} md={8} sm={24} xs={24}>
           <SearchBar
             placeholder={'Введите название соревнования...'}
             value={value}
@@ -73,9 +73,10 @@ const CompetitionList: React.FC = () => {
       <Row className={styles.Cards} gutter={[16, 16]}>
         {competitions.length != 0 ? (
           filteredCompetitions.map((competition) => (
-            <Col key={competition.id} span={8}>
+            <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
               <Link to={`${competition.id}`}>
                 <Card
+                  className={styles.CardItem}
                   hoverable
                   cover={
                     <img
@@ -85,7 +86,7 @@ const CompetitionList: React.FC = () => {
                     />
                   }
                 >
-                  <Meta title={competition.name} />
+                  <Meta className={styles.CardText} title={competition.name} />
                 </Card>
               </Link>
             </Col>

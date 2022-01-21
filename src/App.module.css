@@ -23,3 +23,10 @@
     font-size: 50px;
     padding: 10px;
 }
+
+@media (max-width: 480px) {
+    .BackTop {
+        position: relative;
+        right: 30px;
+    }
+}
