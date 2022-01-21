@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import MenuToggle from './MenuToggle/MenuToggle';
 import styles from './MobileNavbar.module.css';
 import Container from '../../Container/Container';
@@ -8,9 +8,6 @@ import { MAIN_ROUTE, MATCHES_ROUTE, TEAMS_ROUTE } from '../../../../utils/routes
 
 const MobileNavbar: FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
-  useEffect(() => {
-    document.body.classList.toggle('notScroll', visible);
-  }, [visible]);
 
   const onClose = () => {
     setVisible(false);
