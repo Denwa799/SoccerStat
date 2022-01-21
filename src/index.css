@@ -1,14 +1,45 @@
 body {
-  margin: 0;
-  min-width: 320px;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',  'Oxygen',
+    margin: 0;
+    min-width: 320px;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body .ant-picker-panel-container {
+    left: 4%;
+}
+
+body .ant-picker-panels {
+    display: flex;
+    flex-direction: column;
+}
+
+body .ant-calendar-range {
+    width: 300px;
+}
+
+body .ant-picker-panel {
+    width: 100%;
+}
+
+@media (min-width: 600px) {
+    body .ant-picker-panels {
+        flex-direction: row;
+    }
+
+    body .ant-calendar-range {
+        width: 552px;
+    }
+
+    body .ant-picker-panel {
+        width: 50%;
+    }
 }
