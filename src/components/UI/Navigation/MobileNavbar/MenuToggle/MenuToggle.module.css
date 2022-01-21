@@ -1,0 +1,6 @@
+.MenuToggle {
+    color: var(--primary-text);
+    font-size: 25px;
+    transition: opacity, left .22s ease-in;
+    padding-top: 20px;
+}
