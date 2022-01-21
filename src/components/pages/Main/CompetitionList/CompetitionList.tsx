@@ -57,7 +57,7 @@ const CompetitionList: React.FC = () => {
   return (
     <div className={styles.CompetitionList}>
       <Row>
-        <Col xl={7} lg={8} md={8} sm={24} xs={24}>
+        <Col span={24}>
           <SearchBar
             placeholder={'Введите название соревнования...'}
             value={value}
