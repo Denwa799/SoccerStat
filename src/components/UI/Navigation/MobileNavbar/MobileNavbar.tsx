@@ -25,13 +25,19 @@ const MobileNavbar: FC = () => {
         >
           <Menu className={styles.Menu} theme="light">
             <Menu.Item key={0}>
-              <NavLink to={MAIN_ROUTE}>СОРЕВНОВАНИЯ</NavLink>
+              <NavLink to={MAIN_ROUTE} onClick={onClose}>
+                СОРЕВНОВАНИЯ
+              </NavLink>
             </Menu.Item>
             <Menu.Item key={1}>
-              <NavLink to={MATCHES_ROUTE}>МАТЧИ</NavLink>
+              <NavLink to={MATCHES_ROUTE} onClick={onClose}>
+                МАТЧИ
+              </NavLink>
             </Menu.Item>
             <Menu.Item key={2}>
-              <NavLink to={TEAMS_ROUTE}>КОМАНДЫ</NavLink>
+              <NavLink to={TEAMS_ROUTE} onClick={onClose}>
+                КОМАНДЫ
+              </NavLink>
             </Menu.Item>
           </Menu>
         </Drawer>
