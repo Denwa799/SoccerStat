@@ -43,34 +43,34 @@ const MatchResource: React.FC = () => {
             </Title>
             <div className={styles.MatchDescription}>
               <Row className={styles.MatchDescriptionItems}>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Соревнование: {match.match.competition.name}</Title>
                 </Col>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Страна соревнования: {match.match.competition.area.name}</Title>
                 </Col>
               </Row>
               <Row className={styles.MatchDescriptionItems}>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Старт сезона: {match.match.season.startDate}</Title>
                 </Col>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Конец сезона: {match.match.season.endDate}</Title>
                 </Col>
               </Row>
               <Row className={styles.MatchDescriptionItems}>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Статус: {match.match.status}</Title>
                 </Col>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>Место встречи: {match.match.venue}</Title>
                 </Col>
               </Row>
               <Row className={styles.MatchDescriptionItems}>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>День матча: {match.match.matchday}</Title>
                 </Col>
-                <Col span={12}>
+                <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>
                     {match.match.status == 'FINISHED'
                       ? `${match.match.score.fullTime.homeTeam} VS ${match.match.score.fullTime.awayTeam}`
