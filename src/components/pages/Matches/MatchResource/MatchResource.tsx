@@ -67,8 +67,15 @@ const MatchResource: React.FC = () => {
                 </Col>
               </Row>
               <Row className={styles.MatchDescriptionItems}>
-                <Col span={24}>
+                <Col span={12}>
                   <Title level={3}>День матча: {match.match.matchday}</Title>
+                </Col>
+                <Col span={12}>
+                  <Title level={3}>
+                    {match.match.status == 'FINISHED'
+                      ? `${match.match.score.fullTime.homeTeam} VS ${match.match.score.fullTime.awayTeam}`
+                      : 'Результаты матча еще не известны'}
+                  </Title>
                 </Col>
               </Row>
             </div>
