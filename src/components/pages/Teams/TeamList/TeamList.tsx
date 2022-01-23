@@ -57,7 +57,7 @@ const TeamList: React.FC = () => {
   return (
     <div className={styles.TeamList}>
       <Row>
-        <Col span={7}>
+        <Col span={24}>
           <SearchBar
             placeholder={'Введите название команды...'}
             value={value}
@@ -73,7 +73,7 @@ const TeamList: React.FC = () => {
       <Row className={styles.Cards} gutter={[16, 16]}>
         {teams.length != 0 ? (
           filteredTeams.map((team) => (
-            <Col key={team.id} span={8}>
+            <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
               <Link to={`${team.id}`}>
                 <Card
                   className={styles.Card}
