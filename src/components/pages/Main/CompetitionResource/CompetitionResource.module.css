@@ -17,10 +17,6 @@
     margin-bottom: 20px;
 }
 
-.Calendar .ant-picker-date-panel button .ant-picker-header-next-btn {
-    visibility: visible!important;
-}
-
 @media (max-width: 576px) {
     .Title {
         font-size: 30px!important;
