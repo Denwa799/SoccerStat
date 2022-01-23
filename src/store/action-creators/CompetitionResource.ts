@@ -7,7 +7,7 @@ export const fetchCompetition = (id: number, dateFrom: string, dateTo: string) =
     try {
       dispatch({ type: CompetitionActionTypes.FETCH_COMPETITION });
       const response = await axios.get(
-        `${process.env.REACT_APP_PROXY}${process.env.REACT_APP_COMPETITION_LIST}/${id}${process.env.REACT_APP_MATCH}`,
+        `${process.env.REACT_APP_COMPETITION_LIST}/${id}${process.env.REACT_APP_MATCH}`,
         {
           headers: {
             'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,

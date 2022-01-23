@@ -6,14 +6,11 @@ export const fetchMatches = () => {
   return async (dispatch: Dispatch<MatchListAction>) => {
     try {
       dispatch({ type: MatchesActionTypes.FETCH_MATCHES });
-      const response = await axios.get(
-        `${process.env.REACT_APP_PROXY}${process.env.REACT_APP_MATCH_LIST}`,
-        {
-          headers: {
-            'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_MATCH_LIST}`, {
+        headers: {
+          'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
+        },
+      });
       dispatch({
         type: MatchesActionTypes.FETCH_MATCHES_SUCCESS,
         payload: response.data.matches,

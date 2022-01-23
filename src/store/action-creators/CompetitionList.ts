@@ -6,14 +6,11 @@ export const fetchCompetitions = () => {
   return async (dispatch: Dispatch<CompetitionListAction>) => {
     try {
       dispatch({ type: CompetitionsActionTypes.FETCH_COMPETITIONS });
-      const response = await axios.get(
-        `${process.env.REACT_APP_PROXY}${process.env.REACT_APP_COMPETITION_LIST}`,
-        {
-          headers: {
-            'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_COMPETITION_LIST}`, {
+        headers: {
+          'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
+        },
+      });
       dispatch({
         type: CompetitionsActionTypes.FETCH_COMPETITIONS_SUCCESS,
         payload: response.data.competitions,

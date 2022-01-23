@@ -6,14 +6,11 @@ export const fetchTeam = (id: number) => {
   return async (dispatch: Dispatch<TeamResourceAction>) => {
     try {
       dispatch({ type: TeamActionTypes.FETCH_TEAM });
-      const response = await axios.get(
-        `${process.env.REACT_APP_PROXY}${process.env.REACT_APP_TEAM_LIST}/${id}`,
-        {
-          headers: {
-            'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_TEAM_LIST}/${id}`, {
+        headers: {
+          'X-Auth-Token': `${process.env.REACT_APP_TOKEN}`,
+        },
+      });
       dispatch({
         type: TeamActionTypes.FETCH_TEAM_SUCCESS,
         payload: response.data,
