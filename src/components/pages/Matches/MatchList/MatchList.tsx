@@ -30,7 +30,7 @@ const MatchList: React.FC = () => {
       <Row className={styles.Cards} gutter={[16, 16]}>
         {matches.length != 0 ? (
           matches.map((match) => (
-            <Col key={match.id} span={8}>
+            <Col key={match.id} xl={8} lg={12} md={24} sm={24} xs={24}>
               <Link to={`${match.id}`}>
                 <Card
                   hoverable
