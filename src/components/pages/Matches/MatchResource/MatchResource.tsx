@@ -73,7 +73,7 @@ const MatchResource: React.FC = () => {
                 <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                   <Title level={3}>
                     {match.match.status == 'FINISHED'
-                      ? `${match.match.score.fullTime.homeTeam} VS ${match.match.score.fullTime.awayTeam}`
+                      ? `Счет: ${match.match.score.fullTime.homeTeam} VS ${match.match.score.fullTime.awayTeam}`
                       : 'Результаты матча еще не известны'}
                   </Title>
                 </Col>
