@@ -108,7 +108,12 @@ const TeamResource: React.FC = () => {
               }}
               onChange={onFilterChange}
             />
-            <Table columns={columns} dataSource={dataSource} pagination={false} />
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+              scroll={{ x: '550px' }}
+            />
           </div>
         ) : (
           <h1>Информация о команде не найдена</h1>
