@@ -4,8 +4,9 @@ import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchCompetition } from '../../../../store/action-creators/CompetitionResource';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { Typography, Table, DatePicker } from 'antd';
+import { Typography, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
+import AppTable from '../../../UI/AppTable/AppTable';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -61,34 +62,6 @@ const CompetitionResource: React.FC = () => {
     return <h1 className={styles.loading}>{error}</h1>;
   }
 
-  const columns = [
-    {
-      title: 'Статус',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: 'Дата и время',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Домашняя команда',
-      dataIndex: `homeTeam`,
-      key: 'homeTeam',
-    },
-    {
-      title: 'Команда противника',
-      dataIndex: `awayTeam`,
-      key: 'awayTeam',
-    },
-    {
-      title: 'Счет',
-      dataIndex: `score`,
-      key: 'score',
-    },
-  ];
-
   return (
     <div className={styles.CompetitionResource}>
       <Container>
@@ -96,7 +69,7 @@ const CompetitionResource: React.FC = () => {
           <div>
             <Title className={styles.Title}>{competition.competition.name}</Title>
             <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
-            <Table columns={columns} dataSource={dataSource} scroll={{ x: '550px' }} />
+            <AppTable dataSource={dataSource} />
           </div>
         ) : (
           <h1>Соревнование не найдено</h1>
