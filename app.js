@@ -1,18 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires,no-undef
-const express = require('express');
+import path from 'path';
+import express from 'express';
+
 const app = express();
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires,no-undef
-const path = require('path');
-
-// eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;
 
-// eslint-disable-next-line no-undef
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build'));
   app.get('*', (req, res) => {
-    // eslint-disable-next-line no-undef
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
   });
 }
