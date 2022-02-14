@@ -13,26 +13,39 @@ interface SearchBar {
   itemOnClick: (e: any) => void;
 }
 
-const SearchBar: React.FC<SearchBar> = (props) => {
+const SearchBar: React.FC<SearchBar> = ({
+  placeholder,
+  value,
+  inputOnChange,
+  inputOnClick,
+  array,
+  isOpen,
+  filteredArray,
+  itemOnClick,
+}) => {
+  function btnList() {
+    if (array.length != 0 && value && isOpen) {
+      filteredArray.map((item: any) => (
+        <li key={item.id} className={styles.autocompleteItem} onClick={itemOnClick}>
+          {item.name}
+        </li>
+      ));
+    } else {
+      return null;
+    }
+  }
+
   return (
     <form className={styles.SearchBar}>
       <input
         type="text"
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         className={styles.searchInput}
-        value={props.value}
-        onChange={props.inputOnChange}
-        onClick={props.inputOnClick}
+        value={value}
+        onChange={inputOnChange}
+        onClick={inputOnClick}
       />
-      <ul className={styles.autocomplete}>
-        {props.array.length != 0 && props.value && props.isOpen
-          ? props.filteredArray.map((item: any) => (
-              <li key={item.id} className={styles.autocompleteItem} onClick={props.itemOnClick}>
-                {item.name}
-              </li>
-            ))
-          : null}
-      </ul>
+      <ul className={styles.autocomplete}>{btnList}</ul>
       <SearchOutlined className={styles.searchIcn} />
     </form>
   );

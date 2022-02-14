@@ -96,12 +96,7 @@ const CompetitionResource: React.FC = () => {
           <div>
             <Title className={styles.Title}>{competition.competition.name}</Title>
             <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
-            <Table
-              columns={columns}
-              dataSource={dataSource}
-              pagination={false}
-              scroll={{ x: '550px' }}
-            />
+            <Table columns={columns} dataSource={dataSource} scroll={{ x: '550px' }} />
           </div>
         ) : (
           <h1>Соревнование не найдено</h1>

@@ -7,7 +7,7 @@ import { MAIN_ROUTE, MATCHES_ROUTE, TEAMS_ROUTE } from '../../../../utils/routes
 
 const Navbar = () => {
   return (
-    <div className={styles.Navbar}>
+    <div>
       <Container>
         <Menu className={styles.Menu} theme="light" mode="horizontal">
           <Menu.Item key={0}>
