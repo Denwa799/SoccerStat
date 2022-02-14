@@ -23,16 +23,17 @@ const SearchBar: React.FC<SearchBar> = ({
   filteredArray,
   itemOnClick,
 }) => {
-  function btnList() {
-    if (array.length != 0 && value && isOpen) {
-      filteredArray.map((item: any) => (
-        <li key={item.id} className={styles.autocompleteItem} onClick={itemOnClick}>
-          {item.name}
-        </li>
-      ));
-    } else {
-      return null;
-    }
+  let btnList = null;
+
+  if (array.length != 0 && value && isOpen) {
+    filteredArray.map(
+      (item: any) =>
+        (btnList = (
+          <li key={item.id} className={styles.autocompleteItem} onClick={itemOnClick}>
+            {item.name}
+          </li>
+        ))
+    );
   }
 
   return (
