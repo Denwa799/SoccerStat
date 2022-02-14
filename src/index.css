@@ -13,33 +13,37 @@ code {
     monospace;
 }
 
-body .ant-picker-panel-container {
+/* Добавляю адаптив для календаря выбора дат из библиотеки ant design */
+
+.ant-picker-panel-container {
     left: 4%;
 }
 
-body .ant-picker-panels {
+.ant-picker-panels {
     display: flex;
     flex-direction: column;
 }
 
-body .ant-calendar-range {
+.ant-calendar-range {
     width: 300px;
 }
 
-body .ant-picker-panel {
+.ant-picker-panel {
     width: 100%;
 }
 
 @media (min-width: 600px) {
-    body .ant-picker-panels {
+    .ant-picker-panels {
         flex-direction: row;
     }
 
-    body .ant-calendar-range {
+    .ant-calendar-range {
         width: 552px;
     }
 
-    body .ant-picker-panel {
+    .ant-picker-panel {
         width: 50%;
     }
 }
+
+/* Конец блока адаптива для календаря ant design */

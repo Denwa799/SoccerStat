@@ -7,7 +7,6 @@ import { fetchTeam } from '../../../../store/action-creators/TeamResource';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Typography, Table, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
-import moment from 'moment';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -100,14 +99,7 @@ const TeamResource: React.FC = () => {
         {Object.keys(team).length != 0 && Object.keys(teamMatches).length != 0 ? (
           <div>
             <Title className={styles.Title}>{team.name}</Title>
-            <RangePicker
-              className={styles.rangeFilter}
-              ranges={{
-                Today: [moment(), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-              }}
-              onChange={onFilterChange}
-            />
+            <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
             <Table
               columns={columns}
               dataSource={dataSource}

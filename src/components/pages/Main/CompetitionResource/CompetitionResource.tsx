@@ -6,7 +6,6 @@ import { fetchCompetition } from '../../../../store/action-creators/CompetitionR
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Typography, Table, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
-import moment from 'moment';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -96,14 +95,7 @@ const CompetitionResource: React.FC = () => {
         {Object.keys(competition).length != 0 ? (
           <div>
             <Title className={styles.Title}>{competition.competition.name}</Title>
-            <RangePicker
-              className={styles.rangeFilter}
-              ranges={{
-                Today: [moment(), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-              }}
-              onChange={onFilterChange}
-            />
+            <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
             <Table
               columns={columns}
               dataSource={dataSource}
