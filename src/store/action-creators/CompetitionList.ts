@@ -16,6 +16,7 @@ export const fetchCompetitions = () => {
         payload: response.data.competitions,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,

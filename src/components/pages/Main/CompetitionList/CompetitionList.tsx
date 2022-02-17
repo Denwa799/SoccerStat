@@ -39,13 +39,14 @@ const CompetitionList: React.FC = () => {
     return <h1>{error}</h1>;
   }
 
-  const itemChangeHandler = (e: any) => {
+  const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
-  const itemClickHandler = (e: any) => {
-    setSearchParams({ name: e.target.textContent.replace(/ /g, '-') });
+  const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+    const target = e.target as HTMLLIElement;
+    setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
     setValue(paramsName.replace(/-/g, ' '));
     setIsOpen(!isOpen);
   };

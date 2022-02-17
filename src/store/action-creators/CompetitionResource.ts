@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { CompetitionResourceAction, CompetitionActionTypes } from '../../types/Competition';
 
-export const fetchCompetition = (id: number, dateFrom: string, dateTo: string) => {
+export const fetchCompetition = (id: string | undefined, dateFrom: string, dateTo: string) => {
   return async (dispatch: Dispatch<CompetitionResourceAction>) => {
     try {
       dispatch({ type: CompetitionActionTypes.FETCH_COMPETITION });
@@ -23,6 +23,7 @@ export const fetchCompetition = (id: number, dateFrom: string, dateTo: string) =
         payload: response.data,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: CompetitionActionTypes.FETCH_COMPETITION_ERROR,

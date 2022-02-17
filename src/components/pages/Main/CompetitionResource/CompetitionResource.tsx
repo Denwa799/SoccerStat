@@ -11,29 +11,31 @@ import AppTable from '../../../UI/AppTable/AppTable';
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
-interface CompetitionResourceParams {
-  id: string;
+interface IDataSource {
+  key: number;
+  status: string;
+  date: string;
+  awayTeam: string;
+  homeTeam: string;
+  score: string;
 }
 
 const CompetitionResource: React.FC = () => {
   const { competition, error, loading } = useTypedSelector((state) => state.competitionResource);
   const dispatch = useDispatch();
-  const [dataSource, setDataSource] = useState<any[]>([]);
+  const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  // @ts-ignore
-  const params = useParams<CompetitionResourceParams>();
+  const params = useParams();
 
   useEffect(() => {
     const dateFromParam = searchParams.get('dateFrom') || '';
     const dateToParam = searchParams.get('dateTo') || '';
-    // @ts-ignore
     dispatch(fetchCompetition(params.id, dateFromParam, dateToParam));
   }, []);
 
   useEffect(() => {
-    if (Object.keys(competition).length != 0) {
-      const matches = competition.matches.map((match: any) => {
+    if (Object.keys(competition).length != 0 && competition.matches) {
+      const matches = competition.matches.map((match) => {
         return {
           key: match.id,
           status: match.status,
@@ -47,10 +49,9 @@ const CompetitionResource: React.FC = () => {
     }
   }, [competition]);
 
-  function onFilterChange(dates: any, dateStrings: any) {
+  function onFilterChange(dates: any, dateStrings: string[]) {
+    // Невозможно определить dates, так как в него приходит объект даты moment
     setSearchParams({ dateFrom: dateStrings[0], dateTo: dateStrings[1] });
-
-    // @ts-ignore
     dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
   }
 
@@ -65,7 +66,7 @@ const CompetitionResource: React.FC = () => {
   return (
     <div className={styles.CompetitionResource}>
       <Container>
-        {Object.keys(competition).length != 0 ? (
+        {Object.keys(competition).length != 0 && competition.competition ? (
           <div>
             <Title className={styles.Title}>{competition.competition.name}</Title>
             <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />

@@ -16,11 +16,11 @@ export const competitionResourceReducer = (
 ): CompetitionResourceState => {
   switch (action.type) {
     case CompetitionActionTypes.FETCH_COMPETITION:
-      return { loading: true, error: null, competition: {} };
+      return { loading: true, error: null, competition: state.competition };
     case CompetitionActionTypes.FETCH_COMPETITION_SUCCESS:
       return { loading: false, error: null, competition: action.payload };
     case CompetitionActionTypes.FETCH_COMPETITION_ERROR:
-      return { loading: false, error: action.payload, competition: {} };
+      return { loading: false, error: action.payload, competition: state.competition };
     default:
       return state;
   }

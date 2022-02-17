@@ -16,11 +16,11 @@ export const competitionListReducer = (
 ): CompetitionListState => {
   switch (action.type) {
     case CompetitionsActionTypes.FETCH_COMPETITIONS:
-      return { loading: true, error: null, competitions: [] };
+      return { loading: true, error: null, competitions: state.competitions };
     case CompetitionsActionTypes.FETCH_COMPETITIONS_SUCCESS:
       return { loading: false, error: null, competitions: action.payload };
     case CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR:
-      return { loading: false, error: action.payload, competitions: [] };
+      return { loading: false, error: action.payload, competitions: state.competitions };
     default:
       return state;
   }
