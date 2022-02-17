@@ -55,6 +55,32 @@ const CompetitionList: React.FC = () => {
     setIsOpen(true);
   };
 
+  function renderCards() {
+    if (competitions.length != 0) {
+      return filteredCompetitions.map((competition) => (
+        <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
+          <Link to={`${competition.id}`}>
+            <Card
+              className={styles.CardItem}
+              hoverable
+              cover={
+                <img
+                  className={styles.CardImg}
+                  src={competition.emblemUrl ? competition.emblemUrl : noImage}
+                  alt={competition.code}
+                />
+              }
+            >
+              <Meta className={styles.CardText} title={competition.name} />
+            </Card>
+          </Link>
+        </Col>
+      ));
+    } else {
+      return <h1>Соревнования не найдены</h1>;
+    }
+  }
+
   return (
     <div className={styles.CompetitionList}>
       <Row>
@@ -72,29 +98,7 @@ const CompetitionList: React.FC = () => {
         </Col>
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
-        {competitions.length != 0 ? (
-          filteredCompetitions.map((competition) => (
-            <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
-              <Link to={`${competition.id}`}>
-                <Card
-                  className={styles.CardItem}
-                  hoverable
-                  cover={
-                    <img
-                      className={styles.CardImg}
-                      src={competition.emblemUrl ? competition.emblemUrl : noImage}
-                      alt={competition.code}
-                    />
-                  }
-                >
-                  <Meta className={styles.CardText} title={competition.name} />
-                </Card>
-              </Link>
-            </Col>
-          ))
-        ) : (
-          <h1>Соревнования не найдены</h1>
-        )}
+        {renderCards()}
       </Row>
     </div>
   );

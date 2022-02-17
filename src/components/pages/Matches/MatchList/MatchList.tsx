@@ -25,42 +25,44 @@ const MatchList: React.FC = () => {
     return <h1>{error}</h1>;
   }
 
+  function renderCards() {
+    if (matches.length != 0) {
+      return matches.map((match) => (
+        <Col key={match.id} xl={8} lg={12} md={24} sm={24} xs={24}>
+          <Link to={`${match.id}`}>
+            <Card
+              hoverable
+              cover={
+                <img
+                  className={styles.CardImg}
+                  src={
+                    match.competition.area.ensignUrl ? match.competition.area.ensignUrl : noImage
+                  }
+                  alt={match.competition.area.code}
+                />
+              }
+            >
+              <Meta
+                title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
+                description={
+                  match.status == 'FINISHED'
+                    ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
+                    : 'Статус: ' + match.status
+                }
+              />
+            </Card>
+          </Link>
+        </Col>
+      ));
+    } else {
+      return <h1>Сегодня нет матчей</h1>;
+    }
+  }
+
   return (
     <div className={styles.MatchList}>
       <Row className={styles.Cards} gutter={[16, 16]}>
-        {matches.length != 0 ? (
-          matches.map((match) => (
-            <Col key={match.id} xl={8} lg={12} md={24} sm={24} xs={24}>
-              <Link to={`${match.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      className={styles.CardImg}
-                      src={
-                        match.competition.area.ensignUrl
-                          ? match.competition.area.ensignUrl
-                          : noImage
-                      }
-                      alt={match.competition.area.code}
-                    />
-                  }
-                >
-                  <Meta
-                    title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
-                    description={
-                      match.status == 'FINISHED'
-                        ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
-                        : 'Статус: ' + match.status
-                    }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))
-        ) : (
-          <h1>Сегодня нет матчей</h1>
-        )}
+        {renderCards()}
       </Row>
     </div>
   );

@@ -63,19 +63,23 @@ const CompetitionResource: React.FC = () => {
     return <h1 className={styles.loading}>{error}</h1>;
   }
 
+  function renderPage() {
+    if (Object.keys(competition).length != 0 && competition.competition) {
+      return (
+        <div>
+          <Title className={styles.Title}>{competition.competition.name}</Title>
+          <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
+          <AppTable dataSource={dataSource} />
+        </div>
+      );
+    } else {
+      return <h1>Соревнование не найдено</h1>;
+    }
+  }
+
   return (
     <div className={styles.CompetitionResource}>
-      <Container>
-        {Object.keys(competition).length != 0 && competition.competition ? (
-          <div>
-            <Title className={styles.Title}>{competition.competition.name}</Title>
-            <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
-            <AppTable dataSource={dataSource} />
-          </div>
-        ) : (
-          <h1>Соревнование не найдено</h1>
-        )}
-      </Container>
+      <Container>{renderPage()}</Container>
     </div>
   );
 };

@@ -77,17 +77,14 @@ const SearchBar: React.FC<ISearchBar> = ({
   filteredArray,
   itemOnClick,
 }) => {
-  let btnList = null;
-
-  if (array.length != 0 && value && isOpen) {
-    filteredArray.map(
-      (item) =>
-        (btnList = (
-          <li key={item.id} className={styles.autocompleteItem} onClick={itemOnClick}>
-            {item.name}
-          </li>
-        ))
-    );
+  function renderBtns() {
+    if (array.length != 0 && value && isOpen) {
+      return filteredArray.map((item) => (
+        <li key={item.id} className={styles.autocompleteItem} onClick={itemOnClick}>
+          {item.name}
+        </li>
+      ));
+    }
   }
 
   return (
@@ -100,7 +97,7 @@ const SearchBar: React.FC<ISearchBar> = ({
         onChange={inputOnChange}
         onClick={inputOnClick}
       />
-      <ul className={styles.autocomplete}>{btnList}</ul>
+      <ul className={styles.autocomplete}>{renderBtns()}</ul>
       <SearchOutlined className={styles.searchIcn} />
     </form>
   );
