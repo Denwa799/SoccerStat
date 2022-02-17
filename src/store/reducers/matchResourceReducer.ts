@@ -12,11 +12,11 @@ export const matchResourceReducer = (
 ): MatchResourceState => {
   switch (action.type) {
     case MatchActionTypes.FETCH_MATCH:
-      return { loading: true, error: null, match: {} };
+      return { loading: true, error: null, match: state.match };
     case MatchActionTypes.FETCH_MATCH_SUCCESS:
       return { loading: false, error: null, match: action.payload };
     case MatchActionTypes.FETCH_MATCH_ERROR:
-      return { loading: false, error: action.payload, match: {} };
+      return { loading: false, error: action.payload, match: state.match };
     default:
       return state;
   }

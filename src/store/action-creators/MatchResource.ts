@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { MatchResourceAction, MatchActionTypes } from '../../types/Match';
 
-export const fetchMatch = (id: number) => {
+export const fetchMatch = (id: string | undefined) => {
   return async (dispatch: Dispatch<MatchResourceAction>) => {
     try {
       dispatch({ type: MatchActionTypes.FETCH_MATCH });
@@ -16,6 +16,7 @@ export const fetchMatch = (id: number) => {
         payload: response.data,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: MatchActionTypes.FETCH_MATCH_ERROR,

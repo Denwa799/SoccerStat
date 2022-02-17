@@ -9,19 +9,12 @@ import Container from '../../../UI/Container/Container';
 
 const { Title } = Typography;
 
-interface MatchResourceParams {
-  id: string;
-}
-
 const MatchResource: React.FC = () => {
   const { match, error, loading } = useTypedSelector((state) => state.matchResource);
   const dispatch = useDispatch();
-
-  // @ts-ignore
-  const params = useParams<MatchResourceParams>();
+  const params = useParams();
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(fetchMatch(params.id));
   }, []);
 
@@ -36,7 +29,7 @@ const MatchResource: React.FC = () => {
   return (
     <div className={styles.MatchResource}>
       <Container>
-        {Object.keys(match).length != 0 ? (
+        {Object.keys(match).length != 0 && match.match && match.head2head ? (
           <div>
             <Title className={styles.Title}>
               {match.head2head.homeTeam.name} VS {match.head2head.awayTeam.name}

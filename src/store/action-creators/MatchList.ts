@@ -16,6 +16,7 @@ export const fetchMatches = () => {
         payload: response.data.matches,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: MatchesActionTypes.FETCH_MATCHES_ERROR,
