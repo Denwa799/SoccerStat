@@ -76,7 +76,6 @@ const TeamList: React.FC = () => {
             <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
               <Link to={`${team.id}`}>
                 <Card
-                  className={styles.Card}
                   hoverable
                   cover={
                     <img

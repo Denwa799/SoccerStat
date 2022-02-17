@@ -13,10 +13,6 @@
     padding: 50px 20px;
 }
 
-.MatchDescription {
-
-}
-
 .MatchDescriptionItems {
     margin: 20px 0;
     padding: 20px;
@@ -30,4 +26,11 @@
 
 .MatchDescriptionItems h3 {
     margin: 0;
+}
+
+@media (max-width: 576px) {
+    .Title {
+        /* Переписывается стиль библиотеки ant design */
+        font-size: 30px!important;
+    }
 }

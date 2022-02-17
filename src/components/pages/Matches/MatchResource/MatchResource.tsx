@@ -33,7 +33,7 @@ const MatchResource: React.FC = () => {
           <Title className={styles.Title}>
             {match.head2head.homeTeam.name} VS {match.head2head.awayTeam.name}
           </Title>
-          <div className={styles.MatchDescription}>
+          <div>
             <Row className={styles.MatchDescriptionItems}>
               <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                 <Title level={3}>Соревнование: {match.match.competition.name}</Title>

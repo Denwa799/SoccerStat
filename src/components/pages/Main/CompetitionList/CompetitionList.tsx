@@ -61,7 +61,6 @@ const CompetitionList: React.FC = () => {
         <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${competition.id}`}>
             <Card
-              className={styles.CardItem}
               hoverable
               cover={
                 <img
@@ -71,7 +70,7 @@ const CompetitionList: React.FC = () => {
                 />
               }
             >
-              <Meta className={styles.CardText} title={competition.name} />
+              <Meta title={competition.name} />
             </Card>
           </Link>
         </Col>

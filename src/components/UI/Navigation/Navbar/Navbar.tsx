@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './Navbar.module.css';
 import Container from '../../Container/Container';
 import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
@@ -9,7 +8,7 @@ const Navbar = () => {
   return (
     <div>
       <Container>
-        <Menu className={styles.Menu} theme="light" mode="horizontal">
+        <Menu theme="light" mode="horizontal">
           <Menu.Item key={0}>
             <NavLink to={MAIN_ROUTE}>СОРЕВНОВАНИЯ</NavLink>
           </Menu.Item>

@@ -6,19 +6,11 @@
     text-align: center;
 }
 
-.CardItem {
-
-}
-
 .CardImg {
     width: 369px;
     height: 199px;
     object-fit: cover;
     object-position: center;
-}
-
-.CardText {
-
 }
 
 @media (max-width: 1200px) {
