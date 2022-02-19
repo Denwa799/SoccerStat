@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
 import { MatchesActionTypes, MatchListAction } from '../../types/Matches';
+import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchMatches = () => {
   return async (dispatch: Dispatch<MatchListAction>) => {
@@ -17,22 +18,12 @@ export const fetchMatches = () => {
       });
     } catch (e: any) {
       // Невозможно дать конкретный тип ошибке
-      if (e.response.status === 429) {
-        return dispatch({
-          type: MatchesActionTypes.FETCH_MATCHES_ERROR,
-          payload: 'Превышен лимит на запросы',
-        });
-      } else if (e.response.status === 403) {
-        return dispatch({
-          type: MatchesActionTypes.FETCH_MATCHES_ERROR,
-          payload: 'Список матчей не входит в бесплатный тариф',
-        });
-      } else {
-        dispatch({
-          type: MatchesActionTypes.FETCH_MATCHES_ERROR,
-          payload: 'Произошла ошибка при загрузке' + ' списка матчей',
-        });
-      }
+
+      const type = MatchesActionTypes.FETCH_MATCHES_ERROR;
+      const errorText403 = 'Список матчей не входит в бесплатный тариф';
+      const otherErrorText = 'Произошла ошибка при загрузке списка матчей';
+
+      errorResponseHandler(e.response.status, dispatch, type, errorText403, otherErrorText);
     }
   };
 };

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { TeamResourceAction, TeamActionTypes } from '../../types/Team';
+import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchTeam = (id: string | undefined) => {
   return async (dispatch: Dispatch<TeamResourceAction>) => {
@@ -17,22 +18,13 @@ export const fetchTeam = (id: string | undefined) => {
       });
     } catch (e: any) {
       // Невозможно дать конкретный тип ошибке
-      if (e.response.status === 429) {
-        return dispatch({
-          type: TeamActionTypes.FETCH_TEAM_ERROR,
-          payload: 'Превышен лимит на запросы',
-        });
-      } else if (e.response.status === 403) {
-        return dispatch({
-          type: TeamActionTypes.FETCH_TEAM_ERROR,
-          payload: 'Эта команда не входит в бесплатный тариф',
-        });
-      } else {
-        dispatch({
-          type: TeamActionTypes.FETCH_TEAM_ERROR,
-          payload: 'Произошла ошибка при загрузке команды' + ' / она не входит в бесплатный тариф',
-        });
-      }
+
+      const type = TeamActionTypes.FETCH_TEAM_ERROR;
+      const errorText403 = 'Эта команда не входит в бесплатный тариф';
+      const otherErrorText =
+        'Произошла ошибка при загрузке команды / она не входит в бесплатный тариф';
+
+      errorResponseHandler(e.response.status, dispatch, type, errorText403, otherErrorText);
     }
   };
 };

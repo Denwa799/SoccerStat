@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { CompetitionListAction, CompetitionsActionTypes } from '../../types/Competitions';
+import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchCompetitions = () => {
   return async (dispatch: Dispatch<CompetitionListAction>) => {
@@ -17,22 +18,12 @@ export const fetchCompetitions = () => {
       });
     } catch (e: any) {
       // Невозможно дать конкретный тип ошибке
-      if (e.response.status === 429) {
-        return dispatch({
-          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
-          payload: 'Превышен лимит на запросы',
-        });
-      } else if (e.response.status === 403) {
-        return dispatch({
-          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
-          payload: 'Список соревнований не входит в бесплатный тариф',
-        });
-      } else {
-        dispatch({
-          type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR,
-          payload: 'Произошла ошибка при загрузке' + ' списка соревнований',
-        });
-      }
+
+      const type = CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR;
+      const errorText403 = 'Список соревнований не входит в бесплатный тариф';
+      const otherErrorText = 'Произошла ошибка при загрузке списка соревнований';
+
+      errorResponseHandler(e.response.status, dispatch, type, errorText403, otherErrorText);
     }
   };
 };

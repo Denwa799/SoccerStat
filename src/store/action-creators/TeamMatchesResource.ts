@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { TeamMatchesResourceAction, TeamMatchesActionTypes } from '../../types/TeamMatches';
+import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchTeamMatches = (id: string | undefined, dateFrom: string, dateTo: string) => {
   return async (dispatch: Dispatch<TeamMatchesResourceAction>) => {
@@ -24,24 +25,13 @@ export const fetchTeamMatches = (id: string | undefined, dateFrom: string, dateT
       });
     } catch (e: any) {
       // Невозможно дать конкретный тип ошибке
-      if (e.response.status === 429) {
-        return dispatch({
-          type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR,
-          payload: 'Превышен лимит на запросы',
-        });
-      } else if (e.response.status === 403) {
-        return dispatch({
-          type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR,
-          payload: 'Список матчей этой команды не входит в бесплатный тариф',
-        });
-      } else {
-        dispatch({
-          type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR,
-          payload:
-            'Произошла ошибка при загрузке списка матчей команды' +
-            ' / он не входит в бесплатный тариф',
-        });
-      }
+
+      const type = TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR;
+      const errorText403 = 'Список матчей этой команды не входит в бесплатный тариф';
+      const otherErrorText =
+        'Произошла ошибка при загрузке списка матчей команды / он не входит в бесплатный тариф';
+
+      errorResponseHandler(e.response.status, dispatch, type, errorText403, otherErrorText);
     }
   };
 };
