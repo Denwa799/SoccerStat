@@ -6,6 +6,7 @@ import { fetchMatch } from '../../../../store/action-creators/MatchResource';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Typography } from 'antd';
 import Container from '../../../UI/Container/Container';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Title } = Typography;
 
@@ -17,14 +18,6 @@ const MatchResource: React.FC = () => {
   useEffect(() => {
     dispatch(fetchMatch(params.id));
   }, []);
-
-  if (loading) {
-    return <h1 className={styles.loading}>Идет загрузка...</h1>;
-  }
-
-  if (error) {
-    return <h1 className={styles.loading}>{error}</h1>;
-  }
 
   function renderPage() {
     if (Object.keys(match).length != 0 && match.match && match.head2head) {
@@ -80,6 +73,14 @@ const MatchResource: React.FC = () => {
     } else {
       return <h1>Матч не найден</h1>;
     }
+  }
+
+  if (loading || error) {
+    return (
+      <Container>
+        <ErrorLoading loading={loading} error={error} />;
+      </Container>
+    );
   }
 
   return (

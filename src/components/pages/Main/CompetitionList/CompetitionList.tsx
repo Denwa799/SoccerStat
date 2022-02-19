@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
 import { Link, useSearchParams } from 'react-router-dom';
 import SearchBar from '../../../UI/SearchBar/SearchBar';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Meta } = Card;
 
@@ -30,14 +31,6 @@ const CompetitionList: React.FC = () => {
   useEffect(() => {
     setValue(paramsName.replace(/-/g, ' '));
   }, [paramsName]);
-
-  if (loading) {
-    return <h1>Идет загрузка...</h1>;
-  }
-
-  if (error) {
-    return <h1>{error}</h1>;
-  }
 
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -78,6 +71,10 @@ const CompetitionList: React.FC = () => {
     } else {
       return <h1>Соревнования не найдены</h1>;
     }
+  }
+
+  if (loading || error) {
+    return <ErrorLoading loading={loading} error={error} />;
   }
 
   return (

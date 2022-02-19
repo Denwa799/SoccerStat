@@ -8,6 +8,7 @@ import { Typography, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -56,14 +57,6 @@ const CompetitionResource: React.FC = () => {
     dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
   }
 
-  if (loading) {
-    return <h1 className={styles.loading}>Идет загрузка...</h1>;
-  }
-
-  if (error) {
-    return <h1 className={styles.loading}>{error}</h1>;
-  }
-
   function renderPage() {
     if (Object.keys(competition).length != 0 && competition.competition) {
       return (
@@ -83,6 +76,14 @@ const CompetitionResource: React.FC = () => {
     } else {
       return <h1>Соревнование не найдено</h1>;
     }
+  }
+
+  if (loading || error) {
+    return (
+      <Container>
+        <ErrorLoading loading={loading} error={error} />;
+      </Container>
+    );
   }
 
   return (

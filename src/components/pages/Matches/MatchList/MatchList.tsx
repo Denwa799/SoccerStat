@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { fetchMatches } from '../../../../store/action-creators/MatchList';
 import noImage from '../../../../assets/img/noImage.jpg';
 import { Link } from 'react-router-dom';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Meta } = Card;
 
@@ -16,14 +17,6 @@ const MatchList: React.FC = () => {
   useEffect(() => {
     dispatch(fetchMatches());
   }, []);
-
-  if (loading) {
-    return <h1>Идет загрузка...</h1>;
-  }
-
-  if (error) {
-    return <h1>{error}</h1>;
-  }
 
   function renderCards() {
     if (matches.length != 0) {
@@ -57,6 +50,10 @@ const MatchList: React.FC = () => {
     } else {
       return <h1>Сегодня нет матчей</h1>;
     }
+  }
+
+  if (loading || error) {
+    return <ErrorLoading loading={loading} error={error} />;
   }
 
   return (

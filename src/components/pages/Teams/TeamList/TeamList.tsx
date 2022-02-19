@@ -7,6 +7,7 @@ import { fetchTeams } from '../../../../store/action-creators/TeamList';
 import noImage from '../../../../assets/img/noImage.jpg';
 import SearchBar from '../../../UI/SearchBar/SearchBar';
 import { Link, useSearchParams } from 'react-router-dom';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Meta } = Card;
 
@@ -30,14 +31,6 @@ const TeamList: React.FC = () => {
   useEffect(() => {
     setValue(paramsName.replace(/-/g, ' '));
   }, [paramsName]);
-
-  if (loading) {
-    return <h1>Идет загрузка...</h1>;
-  }
-
-  if (error) {
-    return <h1>{error}</h1>;
-  }
 
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -78,6 +71,10 @@ const TeamList: React.FC = () => {
     } else {
       return <h1>Команды не найдены</h1>;
     }
+  }
+
+  if (loading || error) {
+    return <ErrorLoading loading={loading} error={error} />;
   }
 
   return (

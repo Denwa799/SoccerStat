@@ -9,6 +9,7 @@ import { Typography, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
+import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -61,19 +62,9 @@ const TeamResource: React.FC = () => {
     dispatch(fetchTeamMatches(params.id, dateStrings[0], dateStrings[1]));
   }
 
-  if (loadingTeam) {
-    return <h1 className={styles.loading}>Идет загрузка...</h1>;
-  }
-
-  if (errorTeam) {
-    return <h1 className={styles.loading}>{errorTeam}</h1>;
-  }
-
   function renderTable() {
-    if (loadingTeamMatches) {
-      return <h1 className={styles.loading}>Идет загрузка...</h1>;
-    } else if (errorTeamMatches) {
-      return <h1 className={styles.loading}>{errorTeamMatches}</h1>;
+    if (loadingTeamMatches || errorTeamMatches) {
+      return <ErrorLoading loading={loadingTeamMatches} error={errorTeamMatches} />;
     } else {
       return <AppTable dataSource={dataSource} />;
     }
@@ -98,6 +89,14 @@ const TeamResource: React.FC = () => {
     } else {
       return <h1>Информация о команде не найдена</h1>;
     }
+  }
+
+  if (loadingTeam || errorTeam) {
+    return (
+      <Container>
+        <ErrorLoading loading={loadingTeam} error={errorTeam} />;
+      </Container>
+    );
   }
 
   return (
