@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { TeamResourceAction, TeamActionTypes } from '../../types/Team';
 
-export const fetchTeam = (id: number) => {
+export const fetchTeam = (id: string | undefined) => {
   return async (dispatch: Dispatch<TeamResourceAction>) => {
     try {
       dispatch({ type: TeamActionTypes.FETCH_TEAM });
@@ -16,6 +16,7 @@ export const fetchTeam = (id: number) => {
         payload: response.data,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: TeamActionTypes.FETCH_TEAM_ERROR,

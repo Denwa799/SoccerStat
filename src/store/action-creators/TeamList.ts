@@ -16,6 +16,7 @@ export const fetchTeams = () => {
         payload: response.data.teams,
       });
     } catch (e: any) {
+      // Невозможно дать конкретный тип ошибке
       if (e.response.status === 429) {
         return dispatch({
           type: TeamsActionTypes.FETCH_TEAMS_ERROR,

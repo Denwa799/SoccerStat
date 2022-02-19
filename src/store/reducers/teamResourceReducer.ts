@@ -2,8 +2,8 @@ import { TeamResourceAction, TeamResourceState, TeamActionTypes } from '../../ty
 
 const initialState: TeamResourceState = {
   team: {},
-  loading: false,
-  error: null,
+  loadingTeam: false,
+  errorTeam: null,
 };
 
 export const teamResourceReducer = (
@@ -12,11 +12,11 @@ export const teamResourceReducer = (
 ): TeamResourceState => {
   switch (action.type) {
     case TeamActionTypes.FETCH_TEAM:
-      return { loading: true, error: null, team: {} };
+      return { loadingTeam: true, errorTeam: null, team: state.team };
     case TeamActionTypes.FETCH_TEAM_SUCCESS:
-      return { loading: false, error: null, team: action.payload };
+      return { loadingTeam: false, errorTeam: null, team: action.payload };
     case TeamActionTypes.FETCH_TEAM_ERROR:
-      return { loading: false, error: action.payload, team: {} };
+      return { loadingTeam: false, errorTeam: action.payload, team: state.team };
     default:
       return state;
   }

@@ -7,63 +7,9 @@ interface ISearchBar {
   value: string;
   inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputOnClick: () => void;
-  array: {
-    id: number;
-    area: {
-      id: number;
-      name: string;
-      countryCode: string;
-      ensignUrl: string | null;
-    };
-    name: string;
-    code: string;
-    emblemUrl: string | null;
-    plan: string | null;
-    currentSeason: {
-      id: number;
-      startDate: string;
-      endDate: string;
-      currentMatchday: number | null;
-      winner: {
-        id: number;
-        name: string;
-        shortName: string | null;
-        tla: string | null;
-        crestUrl: string | null;
-      } | null;
-      numberOfAvailableSeasons: number | null;
-      lastUpdated: string;
-    };
-  }[];
+  array: any[]; // Может приходит любой массив, будь то соревнования или команды
   isOpen: boolean;
-  filteredArray: {
-    id: number;
-    area: {
-      id: number;
-      name: string;
-      countryCode: string;
-      ensignUrl: string | null;
-    };
-    name: string;
-    code: string;
-    emblemUrl: string | null;
-    plan: string | null;
-    currentSeason: {
-      id: number;
-      startDate: string;
-      endDate: string;
-      currentMatchday: number | null;
-      winner: {
-        id: number;
-        name: string;
-        shortName: string | null;
-        tla: string | null;
-        crestUrl: string | null;
-      } | null;
-      numberOfAvailableSeasons: number | null;
-      lastUpdated: string;
-    };
-  }[];
+  filteredArray: any[]; // Может приходит любой массив, будь то соревнования или команды
   itemOnClick: (e: React.MouseEvent<HTMLLIElement>) => void;
 }
 

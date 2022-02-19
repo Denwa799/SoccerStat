@@ -39,13 +39,14 @@ const TeamList: React.FC = () => {
     return <h1>{error}</h1>;
   }
 
-  const itemChangeHandler = (e: any) => {
+  const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
-  const itemClickHandler = (e: any) => {
-    setSearchParams({ name: e.target.textContent.replace(/ /g, '-') });
+  const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+    const target = e.target as HTMLLIElement;
+    setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
     setValue(paramsName.replace(/-/g, ' '));
     setIsOpen(!isOpen);
   };
@@ -53,6 +54,31 @@ const TeamList: React.FC = () => {
   const inputClickHandler = () => {
     setIsOpen(true);
   };
+
+  function renderCards() {
+    if (teams.length != 0) {
+      return filteredTeams.map((team) => (
+        <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
+          <Link to={`${team.id}`}>
+            <Card
+              hoverable
+              cover={
+                <img
+                  className={styles.CardImg}
+                  src={team.crestUrl ? team.crestUrl : noImage}
+                  alt={team.tla}
+                />
+              }
+            >
+              <Meta title={team.name} />
+            </Card>
+          </Link>
+        </Col>
+      ));
+    } else {
+      return <h1>Команды не найдены</h1>;
+    }
+  }
 
   return (
     <div className={styles.TeamList}>
@@ -71,28 +97,7 @@ const TeamList: React.FC = () => {
         </Col>
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
-        {teams.length != 0 ? (
-          filteredTeams.map((team) => (
-            <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
-              <Link to={`${team.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      className={styles.CardImg}
-                      src={team.crestUrl ? team.crestUrl : noImage}
-                      alt={team.tla}
-                    />
-                  }
-                >
-                  <Meta title={team.name} />
-                </Card>
-              </Link>
-            </Col>
-          ))
-        ) : (
-          <h1>Команды не найдены</h1>
-        )}
+        {renderCards()}
       </Row>
     </div>
   );

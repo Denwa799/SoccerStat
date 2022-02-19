@@ -1,11 +1,33 @@
 export interface TeamListState {
-  teams: any[];
+  teams: Array<{
+    id: number;
+    area: {
+      id: number;
+      name: string;
+    };
+    name: string;
+    shortName: string | null;
+    tla: string;
+    crestUrl: string | null;
+    address: string | null;
+    phone: string | null;
+    website: string | null;
+    email: string | null;
+    founded: number | null;
+    clubColors: string | null;
+    venue: string | null;
+    lastUpdated: string;
+  }>;
   loading: boolean;
   error: null | string;
 }
 
 export interface TeamListAction {
   type: string;
+  // Невозможно определить точный тип для payload, так как он обрабатывает и полученный массив, и ошибку.
+  // При попытке указать payload'у типы, принадлежащие teams и error происходит конфликт между ними внутри
+  // reducer, так как error не может содержать массив объектов, а teams не может содержать ничего другого,
+  // кроме массива объектов с расписанными типами содержимого.
   payload?: any;
 }
 
@@ -24,7 +46,7 @@ interface FetchTeamsAction {
 
 interface FetchTeamsSuccessAction {
   type: TeamsActionTypes.FETCH_TEAMS_SUCCESS;
-  payload: any[];
+  payload: Object[];
 }
 
 interface FetchTeamsErrorAction {

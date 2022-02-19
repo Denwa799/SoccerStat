@@ -8,36 +8,40 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { Typography, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
+import moment from 'moment';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
-interface TeamResourceParams {
-  id: string;
+interface IDataSource {
+  key: number;
+  status: string;
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  score: string;
 }
 
 const TeamResource: React.FC = () => {
-  const { teamMatches } = useTypedSelector((state) => state.teamMatchesResource);
-  const { team, error, loading } = useTypedSelector((state) => state.teamResource);
+  const { teamMatches, errorTeamMatches, loadingTeamMatches } = useTypedSelector(
+    (state) => state.teamMatchesResource
+  );
+  const { team, errorTeam, loadingTeam } = useTypedSelector((state) => state.teamResource);
   const dispatch = useDispatch();
-  const [dataSource, setDataSource] = useState<any[]>([]);
+  const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  // @ts-ignore
-  const params = useParams<TeamResourceParams>();
+  const params = useParams();
 
   useEffect(() => {
     const dateFromParam = searchParams.get('dateFrom') || '';
     const dateToParam = searchParams.get('dateTo') || '';
-    // @ts-ignore
     dispatch(fetchTeamMatches(params.id, dateFromParam, dateToParam));
-    // @ts-ignore
     dispatch(fetchTeam(params.id));
   }, []);
 
   useEffect(() => {
-    if (Object.keys(teamMatches).length != 0) {
-      const matches = teamMatches.matches.map((match: any) => {
+    if (Object.keys(teamMatches).length != 0 && teamMatches.matches) {
+      const matches = teamMatches.matches.map((match) => {
         return {
           key: match.id,
           status: match.status,
@@ -51,34 +55,54 @@ const TeamResource: React.FC = () => {
     }
   }, [teamMatches]);
 
-  function onFilterChange(dates: any, dateStrings: any) {
+  function onFilterChange(dates: any, dateStrings: string[]) {
+    // Невозможно определить dates, так как в него приходит объект даты moment
     setSearchParams({ dateFrom: dateStrings[0], dateTo: dateStrings[1] });
-
-    // @ts-ignore
     dispatch(fetchTeamMatches(params.id, dateStrings[0], dateStrings[1]));
   }
 
-  if (loading) {
+  if (loadingTeam) {
     return <h1 className={styles.loading}>Идет загрузка...</h1>;
   }
 
-  if (error) {
-    return <h1 className={styles.loading}>{error}</h1>;
+  if (errorTeam) {
+    return <h1 className={styles.loading}>{errorTeam}</h1>;
+  }
+
+  function renderTable() {
+    if (loadingTeamMatches) {
+      return <h1 className={styles.loading}>Идет загрузка...</h1>;
+    } else if (errorTeamMatches) {
+      return <h1 className={styles.loading}>{errorTeamMatches}</h1>;
+    } else {
+      return <AppTable dataSource={dataSource} />;
+    }
+  }
+
+  function renderPage() {
+    if (Object.keys(team).length != 0 && Object.keys(teamMatches).length != 0) {
+      return (
+        <div>
+          <Title className={styles.Title}>{team.name}</Title>
+          <RangePicker
+            className={styles.rangeFilter}
+            onChange={onFilterChange}
+            value={[
+              searchParams.get('dateFrom') ? moment(searchParams.get('dateFrom')) : null,
+              searchParams.get('dateTo') ? moment(searchParams.get('dateTo')) : null,
+            ]}
+          />
+          {renderTable()}
+        </div>
+      );
+    } else {
+      return <h1>Информация о команде не найдена</h1>;
+    }
   }
 
   return (
     <div className={styles.TeamResource}>
-      <Container>
-        {Object.keys(team).length != 0 && Object.keys(teamMatches).length != 0 ? (
-          <div>
-            <Title className={styles.Title}>{team.name}</Title>
-            <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
-            <AppTable dataSource={dataSource} />
-          </div>
-        ) : (
-          <h1>Информация о команде не найдена</h1>
-        )}
-      </Container>
+      <Container>{renderPage()}</Container>
     </div>
   );
 };

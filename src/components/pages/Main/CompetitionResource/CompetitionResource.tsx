@@ -16,8 +16,8 @@ interface IDataSource {
   key: number;
   status: string;
   date: string;
-  awayTeam: string;
   homeTeam: string;
+  awayTeam: string;
   score: string;
 }
 

@@ -6,8 +6,8 @@ import {
 
 const initialState: TeamMatchesResourceState = {
   teamMatches: {},
-  loading: false,
-  error: null,
+  loadingTeamMatches: false,
+  errorTeamMatches: null,
 };
 
 export const teamMatchesResourceReducer = (
@@ -16,11 +16,15 @@ export const teamMatchesResourceReducer = (
 ): TeamMatchesResourceState => {
   switch (action.type) {
     case TeamMatchesActionTypes.FETCH_TEAM_MATCHES:
-      return { loading: true, error: null, teamMatches: {} };
+      return { loadingTeamMatches: true, errorTeamMatches: null, teamMatches: state.teamMatches };
     case TeamMatchesActionTypes.FETCH_TEAM_MATCHES_SUCCESS:
-      return { loading: false, error: null, teamMatches: action.payload };
+      return { loadingTeamMatches: false, errorTeamMatches: null, teamMatches: action.payload };
     case TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR:
-      return { loading: false, error: action.payload, teamMatches: {} };
+      return {
+        loadingTeamMatches: false,
+        errorTeamMatches: action.payload,
+        teamMatches: state.teamMatches,
+      };
     default:
       return state;
   }
