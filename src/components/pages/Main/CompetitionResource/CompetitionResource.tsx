@@ -7,6 +7,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { Typography, DatePicker } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
+import moment from 'moment';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -68,7 +69,14 @@ const CompetitionResource: React.FC = () => {
       return (
         <div>
           <Title className={styles.Title}>{competition.competition.name}</Title>
-          <RangePicker className={styles.rangeFilter} onChange={onFilterChange} />
+          <RangePicker
+            className={styles.rangeFilter}
+            onChange={onFilterChange}
+            value={[
+              searchParams.get('dateFrom') ? moment(searchParams.get('dateFrom')) : null,
+              searchParams.get('dateTo') ? moment(searchParams.get('dateTo')) : null,
+            ]}
+          />
           <AppTable dataSource={dataSource} />
         </div>
       );
