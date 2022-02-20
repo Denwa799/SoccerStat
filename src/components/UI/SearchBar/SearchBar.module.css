@@ -57,7 +57,7 @@
     font-size: 18px;
 }
 
-@media (max-width: 371px) {
+@media (max-width: 425px) {
     .searchInput {
         width: 100%;
         padding-right: 31px;
@@ -69,10 +69,20 @@
 
     .clearIcn {
         top: -32px;
-        left: 89%;
+        left: 91%;
     }
 
     .searchIcn {
         display: none;
+    }
+}
+
+@media (max-width: 371px) {
+    .searchInput {
+        padding-right: 35px;
+    }
+
+    .clearIcn {
+        left: 89%;
     }
 }
