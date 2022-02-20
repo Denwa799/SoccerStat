@@ -44,6 +44,11 @@ const TeamList: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const valueClearHandler = () => {
+    setSearchParams({ name: '' });
+    setValue('');
+  };
+
   const inputClickHandler = () => {
     setIsOpen(true);
   };
@@ -92,6 +97,7 @@ const TeamList: React.FC = () => {
             isOpen={isOpen}
             filteredArray={filteredTeams}
             itemOnClick={itemClickHandler}
+            valueClearOnClick={valueClearHandler}
           />
         </Col>
       </Row>

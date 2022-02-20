@@ -44,6 +44,11 @@ const CompetitionList: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const valueClearHandler = () => {
+    setSearchParams({ name: '' });
+    setValue('');
+  };
+
   const inputClickHandler = () => {
     setIsOpen(true);
   };
@@ -92,6 +97,7 @@ const CompetitionList: React.FC = () => {
             isOpen={isOpen}
             filteredArray={filteredCompetitions}
             itemOnClick={itemClickHandler}
+            valueClearOnClick={valueClearHandler}
           />
         </Col>
       </Row>

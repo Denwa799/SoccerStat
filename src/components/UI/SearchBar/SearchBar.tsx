@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-import { SearchOutlined } from '@ant-design/icons';
+import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 interface ISearchBar {
   placeholder: string;
@@ -11,6 +12,7 @@ interface ISearchBar {
   isOpen: boolean;
   filteredArray: any[]; // Может приходит любой массив, будь то соревнования или команды
   itemOnClick: (e: React.MouseEvent<HTMLLIElement>) => void;
+  valueClearOnClick: () => void;
 }
 
 const SearchBar: React.FC<ISearchBar> = ({
@@ -22,6 +24,7 @@ const SearchBar: React.FC<ISearchBar> = ({
   isOpen,
   filteredArray,
   itemOnClick,
+  valueClearOnClick,
 }) => {
   function renderBtns() {
     if (array.length != 0 && value && isOpen) {
@@ -44,7 +47,15 @@ const SearchBar: React.FC<ISearchBar> = ({
         onClick={inputOnClick}
       />
       <ul className={styles.autocomplete}>{renderBtns()}</ul>
-      <SearchOutlined className={styles.searchIcn} />
+      {value ? (
+        <Button
+          type="text"
+          className={styles.clearIcn}
+          icon={<CloseCircleFilled onClick={valueClearOnClick} />}
+        />
+      ) : (
+        <SearchOutlined className={styles.searchIcn} />
+      )}
     </form>
   );
 };

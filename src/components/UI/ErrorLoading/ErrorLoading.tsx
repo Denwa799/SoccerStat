@@ -8,9 +8,9 @@ interface IErrorLoading {
   error: null | string;
 }
 
-const ErrorLoading: React.FC<IErrorLoading> = ({ loading, error }) => {
-  const antIcon = <LoadingOutlined className={styles.Loader} spin />;
+const antIcon = <LoadingOutlined className={styles.Loader} spin />;
 
+const ErrorLoading: React.FC<IErrorLoading> = ({ loading, error }) => {
   if (error) {
     return <h1>{error}</h1>;
   } else if (loading) {
