@@ -65,6 +65,8 @@ const TeamResource: React.FC = () => {
   function renderTable() {
     if (loadingTeamMatches || errorTeamMatches) {
       return <ErrorLoading loading={loadingTeamMatches} error={errorTeamMatches} />;
+    } else if (teamMatches.count === 0) {
+      return <h1>Список матчей пуст</h1>;
     } else {
       return <AppTable dataSource={dataSource} />;
     }
