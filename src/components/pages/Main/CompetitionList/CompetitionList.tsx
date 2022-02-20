@@ -49,7 +49,7 @@ const CompetitionList: React.FC = () => {
   };
 
   function renderCards() {
-    if (competitions.length != 0) {
+    if (competitions.length != 0 && filteredCompetitions.length != 0) {
       return filteredCompetitions.map((competition) => (
         <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${competition.id}`}>
@@ -68,6 +68,8 @@ const CompetitionList: React.FC = () => {
           </Link>
         </Col>
       ));
+    } else if (competitions.length != 0 && filteredCompetitions.length === 0) {
+      return <h1>Соревнование с таким названием не найдено</h1>;
     } else {
       return <h1>Соревнования не найдены</h1>;
     }

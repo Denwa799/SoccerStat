@@ -49,7 +49,7 @@ const TeamList: React.FC = () => {
   };
 
   function renderCards() {
-    if (teams.length != 0) {
+    if (teams.length != 0 && filteredTeams.length != 0) {
       return filteredTeams.map((team) => (
         <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${team.id}`}>
@@ -68,6 +68,8 @@ const TeamList: React.FC = () => {
           </Link>
         </Col>
       ));
+    } else if (teams.length != 0 && filteredTeams.length === 0) {
+      return <h1>Команда с таким названием не найдена</h1>;
     } else {
       return <h1>Команды не найдены</h1>;
     }
