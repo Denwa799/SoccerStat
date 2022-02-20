@@ -78,7 +78,7 @@ const MatchResource: React.FC = () => {
   if (loading || error) {
     return (
       <Container>
-        <ErrorLoading loading={loading} error={error} />;
+        <ErrorLoading loading={loading} error={error} />
       </Container>
     );
   }

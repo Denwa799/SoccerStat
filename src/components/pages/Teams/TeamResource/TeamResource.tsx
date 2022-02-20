@@ -94,7 +94,7 @@ const TeamResource: React.FC = () => {
   if (loadingTeam || errorTeam) {
     return (
       <Container>
-        <ErrorLoading loading={loadingTeam} error={errorTeam} />;
+        <ErrorLoading loading={loadingTeam} error={errorTeam} />
       </Container>
     );
   }
