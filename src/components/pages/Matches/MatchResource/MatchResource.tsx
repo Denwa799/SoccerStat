@@ -7,11 +7,12 @@ import { useParams } from 'react-router-dom';
 import { Row, Col, Typography } from 'antd';
 import Container from '../../../UI/Container/Container';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import { matchResourceSelector } from '../../../../store/selectors/selectors';
 
 const { Title } = Typography;
 
 const MatchResource: React.FC = () => {
-  const { match, error, loading } = useTypedSelector((state) => state.matchResource);
+  const { match, error, loading } = useTypedSelector(matchResourceSelector);
   const dispatch = useDispatch();
   const params = useParams();
 

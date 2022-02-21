@@ -10,6 +10,10 @@ import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import {
+  teamMatchesResourceSelector,
+  teamResourceSelector,
+} from '../../../../store/selectors/selectors';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -25,9 +29,9 @@ interface IDataSource {
 
 const TeamResource: React.FC = () => {
   const { teamMatches, errorTeamMatches, loadingTeamMatches } = useTypedSelector(
-    (state) => state.teamMatchesResource
+    teamMatchesResourceSelector
   );
-  const { team, errorTeam, loadingTeam } = useTypedSelector((state) => state.teamResource);
+  const { team, errorTeam, loadingTeam } = useTypedSelector(teamResourceSelector);
   const dispatch = useDispatch();
   const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();

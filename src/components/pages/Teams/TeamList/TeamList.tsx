@@ -8,11 +8,12 @@ import noImage from '../../../../assets/img/noImage.jpg';
 import SearchBar from '../../../UI/SearchBar/SearchBar';
 import { Link, useSearchParams } from 'react-router-dom';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import { teamListSelector } from '../../../../store/selectors/selectors';
 
 const { Meta } = Card;
 
 const TeamList: React.FC = () => {
-  const { teams, error, loading } = useTypedSelector((state) => state.teamList);
+  const { teams, error, loading } = useTypedSelector(teamListSelector);
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(true);

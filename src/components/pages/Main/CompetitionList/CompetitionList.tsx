@@ -8,11 +8,12 @@ import { fetchCompetitions } from '../../../../store/action-creators/Competition
 import { Link, useSearchParams } from 'react-router-dom';
 import SearchBar from '../../../UI/SearchBar/SearchBar';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import { competitionListSelector } from '../../../../store/selectors/selectors';
 
 const { Meta } = Card;
 
 const CompetitionList: React.FC = () => {
-  const { competitions, error, loading } = useTypedSelector((state) => state.competitionList);
+  const { competitions, error, loading } = useTypedSelector(competitionListSelector);
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(true);

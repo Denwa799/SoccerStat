@@ -9,6 +9,7 @@ import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import { competitionResourceSelector } from '../../../../store/selectors/selectors';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -23,7 +24,7 @@ interface IDataSource {
 }
 
 const CompetitionResource: React.FC = () => {
-  const { competition, error, loading } = useTypedSelector((state) => state.competitionResource);
+  const { competition, error, loading } = useTypedSelector(competitionResourceSelector);
   const dispatch = useDispatch();
   const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();

@@ -7,11 +7,12 @@ import { fetchMatches } from '../../../../store/action-creators/MatchList';
 import noImage from '../../../../assets/img/noImage.jpg';
 import { Link } from 'react-router-dom';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
+import { matchListSelector } from '../../../../store/selectors/selectors';
 
 const { Meta } = Card;
 
 const MatchList: React.FC = () => {
-  const { matches, error, loading } = useTypedSelector((state) => state.matchList);
+  const { matches, error, loading } = useTypedSelector(matchListSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
