@@ -1,4 +1,4 @@
-export interface MatchResourceState {
+export interface IMatchResourceState {
   match: {
     head2head?: {
       numberOfMatches: number | null;
@@ -87,7 +87,7 @@ export interface MatchResourceState {
   error: null | string;
 }
 
-export interface MatchResourceAction {
+export interface IMatchResourceAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный объект, и ошибку.
   // При попытке указать payload'у типы, принадлежащие competition и error происходит конфликт между ними внутри
@@ -105,18 +105,18 @@ export enum MatchActionTypes {
   FETCH_MATCH_ERROR = 'FETCH_MATCH_ERROR',
 }
 
-interface FetchMatchAction {
+interface IFetchMatchAction {
   type: MatchActionTypes.FETCH_MATCH;
 }
 
-interface FetchMatchSuccessAction {
+interface IFetchMatchSuccessAction {
   type: MatchActionTypes.FETCH_MATCH_SUCCESS;
   payload: Object;
 }
 
-interface FetchMatchErrorAction {
+interface IFetchMatchErrorAction {
   type: MatchActionTypes.FETCH_MATCH_ERROR;
   payload: string;
 }
 
-export type MatchAction = FetchMatchAction | FetchMatchSuccessAction | FetchMatchErrorAction;
+export type MatchAction = IFetchMatchAction | IFetchMatchSuccessAction | IFetchMatchErrorAction;

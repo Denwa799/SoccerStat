@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { CompetitionListAction, CompetitionsActionTypes } from '../../types/Competitions';
+import { ICompetitionListAction, CompetitionsActionTypes } from '../../types/store/Competitions';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchCompetitions = () => {
-  return async (dispatch: Dispatch<CompetitionListAction>) => {
+  return async (dispatch: Dispatch<ICompetitionListAction>) => {
     try {
       dispatch({ type: CompetitionsActionTypes.FETCH_COMPETITIONS });
       const response = await axios.get(`${process.env.REACT_APP_COMPETITION_LIST}`, {

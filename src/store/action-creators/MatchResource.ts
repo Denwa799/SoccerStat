@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { MatchResourceAction, MatchActionTypes } from '../../types/Match';
+import { IMatchResourceAction, MatchActionTypes } from '../../types/store/Match';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchMatch = (id: string | undefined) => {
-  return async (dispatch: Dispatch<MatchResourceAction>) => {
+  return async (dispatch: Dispatch<IMatchResourceAction>) => {
     try {
       dispatch({ type: MatchActionTypes.FETCH_MATCH });
       const response = await axios.get(`${process.env.REACT_APP_MATCH_LIST}/${id}`, {

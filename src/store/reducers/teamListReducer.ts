@@ -1,12 +1,12 @@
-import { TeamListAction, TeamListState, TeamsActionTypes } from '../../types/Teams';
+import { ITeamListAction, ITeamListState, TeamsActionTypes } from '../../types/store/Teams';
 
-const initialState: TeamListState = {
+const initialState: ITeamListState = {
   teams: [],
   loading: false,
   error: null,
 };
 
-export const teamListReducer = (state = initialState, action: TeamListAction): TeamListState => {
+export const teamListReducer = (state = initialState, action: ITeamListAction): ITeamListState => {
   switch (action.type) {
     case TeamsActionTypes.FETCH_TEAMS:
       return { loading: true, error: null, teams: state.teams };

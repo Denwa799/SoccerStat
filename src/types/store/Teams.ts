@@ -1,4 +1,4 @@
-export interface TeamListState {
+export interface ITeamListState {
   teams: Array<{
     id: number;
     area: {
@@ -22,7 +22,7 @@ export interface TeamListState {
   error: null | string;
 }
 
-export interface TeamListAction {
+export interface ITeamListAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный массив, и ошибку.
   // При попытке указать payload'у типы, принадлежащие teams и error происходит конфликт между ними внутри
@@ -40,18 +40,18 @@ export enum TeamsActionTypes {
   FETCH_TEAMS_ERROR = 'FETCH_TEAMS_ERROR',
 }
 
-interface FetchTeamsAction {
+interface IFetchTeamsAction {
   type: TeamsActionTypes.FETCH_TEAMS;
 }
 
-interface FetchTeamsSuccessAction {
+interface IFetchTeamsSuccessAction {
   type: TeamsActionTypes.FETCH_TEAMS_SUCCESS;
   payload: Object[];
 }
 
-interface FetchTeamsErrorAction {
+interface IFetchTeamsErrorAction {
   type: TeamsActionTypes.FETCH_TEAMS_ERROR;
   payload: string;
 }
 
-export type TeamsAction = FetchTeamsAction | FetchTeamsSuccessAction | FetchTeamsErrorAction;
+export type TeamsAction = IFetchTeamsAction | IFetchTeamsSuccessAction | IFetchTeamsErrorAction;

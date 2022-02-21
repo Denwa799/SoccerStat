@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { TeamMatchesResourceAction, TeamMatchesActionTypes } from '../../types/TeamMatches';
+import { ITeamMatchesResourceAction, TeamMatchesActionTypes } from '../../types/store/TeamMatches';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchTeamMatches = (id: string | undefined, dateFrom: string, dateTo: string) => {
-  return async (dispatch: Dispatch<TeamMatchesResourceAction>) => {
+  return async (dispatch: Dispatch<ITeamMatchesResourceAction>) => {
     try {
       dispatch({ type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES });
       const response = await axios.get(

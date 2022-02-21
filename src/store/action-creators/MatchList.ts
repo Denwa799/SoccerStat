@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { MatchesActionTypes, MatchListAction } from '../../types/Matches';
+import { MatchesActionTypes, IMatchListAction } from '../../types/store/Matches';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchMatches = () => {
-  return async (dispatch: Dispatch<MatchListAction>) => {
+  return async (dispatch: Dispatch<IMatchListAction>) => {
     try {
       dispatch({ type: MatchesActionTypes.FETCH_MATCHES });
       const response = await axios.get(`${process.env.REACT_APP_MATCH_LIST}`, {

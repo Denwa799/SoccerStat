@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { TeamResourceAction, TeamActionTypes } from '../../types/Team';
+import { ITeamResourceAction, TeamActionTypes } from '../../types/store/Team';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchTeam = (id: string | undefined) => {
-  return async (dispatch: Dispatch<TeamResourceAction>) => {
+  return async (dispatch: Dispatch<ITeamResourceAction>) => {
     try {
       dispatch({ type: TeamActionTypes.FETCH_TEAM });
       const response = await axios.get(`${process.env.REACT_APP_TEAM_LIST}/${id}`, {

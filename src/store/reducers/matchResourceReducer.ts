@@ -1,6 +1,10 @@
-import { MatchResourceAction, MatchResourceState, MatchActionTypes } from '../../types/Match';
+import {
+  IMatchResourceAction,
+  IMatchResourceState,
+  MatchActionTypes,
+} from '../../types/store/Match';
 
-const initialState: MatchResourceState = {
+const initialState: IMatchResourceState = {
   match: {},
   loading: false,
   error: null,
@@ -8,8 +12,8 @@ const initialState: MatchResourceState = {
 
 export const matchResourceReducer = (
   state = initialState,
-  action: MatchResourceAction
-): MatchResourceState => {
+  action: IMatchResourceAction
+): IMatchResourceState => {
   switch (action.type) {
     case MatchActionTypes.FETCH_MATCH:
       return { loading: true, error: null, match: state.match };

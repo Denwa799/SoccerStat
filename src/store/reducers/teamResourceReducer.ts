@@ -1,6 +1,6 @@
-import { TeamResourceAction, TeamResourceState, TeamActionTypes } from '../../types/Team';
+import { ITeamResourceAction, ITeamResourceState, TeamActionTypes } from '../../types/store/Team';
 
-const initialState: TeamResourceState = {
+const initialState: ITeamResourceState = {
   team: {},
   loadingTeam: false,
   errorTeam: null,
@@ -8,8 +8,8 @@ const initialState: TeamResourceState = {
 
 export const teamResourceReducer = (
   state = initialState,
-  action: TeamResourceAction
-): TeamResourceState => {
+  action: ITeamResourceAction
+): ITeamResourceState => {
   switch (action.type) {
     case TeamActionTypes.FETCH_TEAM:
       return { loadingTeam: true, errorTeam: null, team: state.team };

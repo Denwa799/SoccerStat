@@ -1,25 +1,9 @@
 import React from 'react';
 import { Table } from 'antd';
+import { IAppTable, IAppTableColumn } from '../../../types/UI/UI';
 
-interface AppTable {
-  dataSource: Array<{
-    key: number;
-    status: string;
-    date: string;
-    awayTeam: string;
-    homeTeam: string;
-    score: string;
-  }>;
-}
-
-interface AppTableColumn {
-  title: string;
-  dataIndex: string;
-  key: string;
-}
-
-const AppTable: React.FC<AppTable> = ({ dataSource }) => {
-  const columns: AppTableColumn[] = [
+const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
+  const columns: IAppTableColumn[] = [
     {
       title: 'Статус',
       dataIndex: 'status',

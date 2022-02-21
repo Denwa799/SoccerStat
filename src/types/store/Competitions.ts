@@ -1,4 +1,4 @@
-export interface CompetitionListState {
+export interface ICompetitionListState {
   competitions: Array<{
     id: number;
     area: {
@@ -31,7 +31,7 @@ export interface CompetitionListState {
   error: null | string;
 }
 
-export interface CompetitionListAction {
+export interface ICompetitionListAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный массив, и ошибку.
   // При попытке указать payload'у типы, принадлежащие competitions и error происходит конфликт между ними внутри
@@ -49,21 +49,21 @@ export enum CompetitionsActionTypes {
   FETCH_COMPETITIONS_ERROR = 'FETCH_COMPETITIONS_ERROR',
 }
 
-interface FetchCompetitionsAction {
+interface IFetchCompetitionsAction {
   type: CompetitionsActionTypes.FETCH_COMPETITIONS;
 }
 
-interface FetchCompetitionsSuccessAction {
+interface IFetchCompetitionsSuccessAction {
   type: CompetitionsActionTypes.FETCH_COMPETITIONS_SUCCESS;
   payload: Object[];
 }
 
-interface FetchCompetitionsErrorAction {
+interface IFetchCompetitionsErrorAction {
   type: CompetitionsActionTypes.FETCH_COMPETITIONS_ERROR;
   payload: string;
 }
 
 export type CompetitionsAction =
-  | FetchCompetitionsAction
-  | FetchCompetitionsSuccessAction
-  | FetchCompetitionsErrorAction;
+  | IFetchCompetitionsAction
+  | IFetchCompetitionsSuccessAction
+  | IFetchCompetitionsErrorAction;

@@ -1,12 +1,15 @@
-import { MatchListAction, MatchListState, MatchesActionTypes } from '../../types/Matches';
+import { IMatchListAction, IMatchListState, MatchesActionTypes } from '../../types/store/Matches';
 
-const initialState: MatchListState = {
+const initialState: IMatchListState = {
   matches: [],
   loading: false,
   error: null,
 };
 
-export const matchListReducer = (state = initialState, action: MatchListAction): MatchListState => {
+export const matchListReducer = (
+  state = initialState,
+  action: IMatchListAction
+): IMatchListState => {
   switch (action.type) {
     case MatchesActionTypes.FETCH_MATCHES:
       return { loading: true, error: null, matches: state.matches };

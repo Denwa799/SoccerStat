@@ -1,4 +1,4 @@
-export interface CompetitionResourceState {
+export interface ICompetitionResourceState {
   competition: {
     count?: number;
     filters?: {};
@@ -65,7 +65,7 @@ export interface CompetitionResourceState {
   error: null | string;
 }
 
-export interface CompetitionResourceAction {
+export interface ICompetitionResourceAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный объект, и ошибку.
   // При попытке указать payload'у типы, принадлежащие competition и error происходит конфликт между ними внутри
@@ -83,21 +83,21 @@ export enum CompetitionActionTypes {
   FETCH_COMPETITION_ERROR = 'FETCH_COMPETITION_ERROR',
 }
 
-interface FetchCompetitionAction {
+interface IFetchCompetitionAction {
   type: CompetitionActionTypes.FETCH_COMPETITION;
 }
 
-interface FetchCompetitionSuccessAction {
+interface IFetchCompetitionSuccessAction {
   type: CompetitionActionTypes.FETCH_COMPETITION_SUCCESS;
   payload: Object;
 }
 
-interface FetchCompetitionErrorAction {
+interface IFetchCompetitionErrorAction {
   type: CompetitionActionTypes.FETCH_COMPETITION_ERROR;
   payload: string;
 }
 
 export type CompetitionAction =
-  | FetchCompetitionAction
-  | FetchCompetitionSuccessAction
-  | FetchCompetitionErrorAction;
+  | IFetchCompetitionAction
+  | IFetchCompetitionSuccessAction
+  | IFetchCompetitionErrorAction;

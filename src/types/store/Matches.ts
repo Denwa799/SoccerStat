@@ -1,4 +1,4 @@
-export interface MatchListState {
+export interface IMatchListState {
   matches: Array<{
     id: number;
     competition: {
@@ -66,7 +66,7 @@ export interface MatchListState {
   error: null | string;
 }
 
-export interface MatchListAction {
+export interface IMatchListAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный массив, и ошибку.
   // При попытке указать payload'у типы, принадлежащие matches и error происходит конфликт между ними внутри
@@ -84,21 +84,21 @@ export enum MatchesActionTypes {
   FETCH_MATCHES_ERROR = 'FETCH_MATCHES_ERROR',
 }
 
-interface FetchMatchesAction {
+interface IFetchMatchesAction {
   type: MatchesActionTypes.FETCH_MATCHES;
 }
 
-interface FetchMatchesSuccessAction {
+interface IFetchMatchesSuccessAction {
   type: MatchesActionTypes.FETCH_MATCHES_SUCCESS;
   payload: Object[];
 }
 
-interface FetchMatchesErrorAction {
+interface IFetchMatchesErrorAction {
   type: MatchesActionTypes.FETCH_MATCHES_ERROR;
   payload: string;
 }
 
 export type MatchesAction =
-  | FetchMatchesAction
-  | FetchMatchesSuccessAction
-  | FetchMatchesErrorAction;
+  | IFetchMatchesAction
+  | IFetchMatchesSuccessAction
+  | IFetchMatchesErrorAction;

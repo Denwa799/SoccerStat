@@ -2,18 +2,7 @@ import React from 'react';
 import styles from './SearchBar.module.css';
 import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-
-interface ISearchBar {
-  placeholder: string;
-  value: string;
-  inputOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputOnClick: () => void;
-  array: any[]; // Может приходит любой массив, будь то соревнования или команды
-  isOpen: boolean;
-  filteredArray: any[]; // Может приходит любой массив, будь то соревнования или команды
-  itemOnClick: (e: React.MouseEvent<HTMLLIElement>) => void;
-  valueClearOnClick: () => void;
-}
+import { ISearchBar } from '../../../types/UI/UI';
 
 const SearchBar: React.FC<ISearchBar> = ({
   placeholder,

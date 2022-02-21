@@ -1,10 +1,10 @@
 import {
-  CompetitionListAction,
-  CompetitionListState,
+  ICompetitionListAction,
+  ICompetitionListState,
   CompetitionsActionTypes,
-} from '../../types/Competitions';
+} from '../../types/store/Competitions';
 
-const initialState: CompetitionListState = {
+const initialState: ICompetitionListState = {
   competitions: [],
   loading: false,
   error: null,
@@ -12,8 +12,8 @@ const initialState: CompetitionListState = {
 
 export const competitionListReducer = (
   state = initialState,
-  action: CompetitionListAction
-): CompetitionListState => {
+  action: ICompetitionListAction
+): ICompetitionListState => {
   switch (action.type) {
     case CompetitionsActionTypes.FETCH_COMPETITIONS:
       return { loading: true, error: null, competitions: state.competitions };

@@ -1,4 +1,4 @@
-export interface TeamMatchesResourceState {
+export interface ITeamMatchesResourceState {
   teamMatches: {
     count?: number;
     filters?: {
@@ -78,7 +78,7 @@ export interface TeamMatchesResourceState {
   errorTeamMatches: null | string;
 }
 
-export interface TeamMatchesResourceAction {
+export interface ITeamMatchesResourceAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный объект, и ошибку.
   // При попытке указать payload'у типы, принадлежащие teamMatches и error происходит конфликт между ними внутри
@@ -96,21 +96,21 @@ export enum TeamMatchesActionTypes {
   FETCH_TEAM_MATCHES_ERROR = 'FETCH_TEAM_MATCHES_ERROR',
 }
 
-interface FetchTeamMatchesAction {
+interface IFetchTeamMatchesAction {
   type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES;
 }
 
-interface FetchTeamMatchesSuccessAction {
+interface IFetchTeamMatchesSuccessAction {
   type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES_SUCCESS;
   payload: Object;
 }
 
-interface FetchTeamMatchesErrorAction {
+interface IFetchTeamMatchesErrorAction {
   type: TeamMatchesActionTypes.FETCH_TEAM_MATCHES_ERROR;
   payload: string;
 }
 
 export type TeamMatchesAction =
-  | FetchTeamMatchesAction
-  | FetchTeamMatchesSuccessAction
-  | FetchTeamMatchesErrorAction;
+  | IFetchTeamMatchesAction
+  | IFetchTeamMatchesSuccessAction
+  | IFetchTeamMatchesErrorAction;

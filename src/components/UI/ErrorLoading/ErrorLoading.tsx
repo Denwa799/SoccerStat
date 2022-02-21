@@ -2,11 +2,7 @@ import React from 'react';
 import styles from './ErrorLoading.module.css';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-
-interface IErrorLoading {
-  loading: boolean;
-  error: null | string;
-}
+import { IErrorLoading } from '../../../types/UI/UI';
 
 const antIcon = <LoadingOutlined className={styles.Loader} spin />;
 

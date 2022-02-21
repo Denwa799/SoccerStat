@@ -1,4 +1,4 @@
-export interface TeamResourceState {
+export interface ITeamResourceState {
   team: {
     id?: number;
     area?: {
@@ -43,7 +43,7 @@ export interface TeamResourceState {
   errorTeam: null | string;
 }
 
-export interface TeamResourceAction {
+export interface ITeamResourceAction {
   type: string;
   // Невозможно определить точный тип для payload, так как он обрабатывает и полученный объект, и ошибку.
   // При попытке указать payload'у типы, принадлежащие team и error происходит конфликт между ними внутри
@@ -61,18 +61,18 @@ export enum TeamActionTypes {
   FETCH_TEAM_ERROR = 'FETCH_TEAM_ERROR',
 }
 
-interface FetchTeamAction {
+interface IFetchTeamAction {
   type: TeamActionTypes.FETCH_TEAM;
 }
 
-interface FetchTeamSuccessAction {
+interface IFetchTeamSuccessAction {
   type: TeamActionTypes.FETCH_TEAM_SUCCESS;
   payload: Object;
 }
 
-interface FetchTeamErrorAction {
+interface IFetchTeamErrorAction {
   type: TeamActionTypes.FETCH_TEAM_ERROR;
   payload: string;
 }
 
-export type TeamAction = FetchTeamAction | FetchTeamSuccessAction | FetchTeamErrorAction;
+export type TeamAction = IFetchTeamAction | IFetchTeamSuccessAction | IFetchTeamErrorAction;

@@ -10,18 +10,10 @@ import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { competitionResourceSelector } from '../../../../store/selectors/selectors';
+import { IDataSource } from '../../../../types/pages/pages';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
-
-interface IDataSource {
-  key: number;
-  status: string;
-  date: string;
-  homeTeam: string;
-  awayTeam: string;
-  score: string;
-}
 
 const CompetitionResource: React.FC = () => {
   const { competition, error, loading } = useTypedSelector(competitionResourceSelector);

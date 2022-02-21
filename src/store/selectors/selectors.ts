@@ -1,19 +1,19 @@
-import { CompetitionListState } from '../../types/Competitions';
-import { CompetitionResourceState } from '../../types/Competition';
-import { MatchListState } from '../../types/Matches';
-import { MatchResourceState } from '../../types/Match';
-import { TeamListState } from '../../types/Teams';
-import { TeamMatchesResourceState } from '../../types/TeamMatches';
-import { TeamResourceState } from '../../types/Team';
+import { ICompetitionListState } from '../../types/store/Competitions';
+import { ICompetitionResourceState } from '../../types/store/Competition';
+import { IMatchListState } from '../../types/store/Matches';
+import { IMatchResourceState } from '../../types/store/Match';
+import { ITeamListState } from '../../types/store/Teams';
+import { ITeamMatchesResourceState } from '../../types/store/TeamMatches';
+import { ITeamResourceState } from '../../types/store/Team';
 
 interface IState {
-  competitionList: CompetitionListState;
-  competitionResource: CompetitionResourceState;
-  matchList: MatchListState;
-  matchResource: MatchResourceState;
-  teamList: TeamListState;
-  teamMatchesResource: TeamMatchesResourceState;
-  teamResource: TeamResourceState;
+  competitionList: ICompetitionListState;
+  competitionResource: ICompetitionResourceState;
+  matchList: IMatchListState;
+  matchResource: IMatchResourceState;
+  teamList: ITeamListState;
+  teamMatchesResource: ITeamMatchesResourceState;
+  teamResource: ITeamResourceState;
 }
 
 export const competitionListSelector = (state: IState) => state.competitionList;

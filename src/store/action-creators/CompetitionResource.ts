@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { CompetitionResourceAction, CompetitionActionTypes } from '../../types/Competition';
+import { ICompetitionResourceAction, CompetitionActionTypes } from '../../types/store/Competition';
 import { errorResponseHandler } from '../../utils/errorResponseHandler';
 
 export const fetchCompetition = (id: string | undefined, dateFrom: string, dateTo: string) => {
-  return async (dispatch: Dispatch<CompetitionResourceAction>) => {
+  return async (dispatch: Dispatch<ICompetitionResourceAction>) => {
     try {
       dispatch({ type: CompetitionActionTypes.FETCH_COMPETITION });
       const response = await axios.get(

@@ -1,10 +1,10 @@
 import {
-  TeamMatchesResourceAction,
-  TeamMatchesResourceState,
+  ITeamMatchesResourceAction,
+  ITeamMatchesResourceState,
   TeamMatchesActionTypes,
-} from '../../types/TeamMatches';
+} from '../../types/store/TeamMatches';
 
-const initialState: TeamMatchesResourceState = {
+const initialState: ITeamMatchesResourceState = {
   teamMatches: {},
   loadingTeamMatches: false,
   errorTeamMatches: null,
@@ -12,8 +12,8 @@ const initialState: TeamMatchesResourceState = {
 
 export const teamMatchesResourceReducer = (
   state = initialState,
-  action: TeamMatchesResourceAction
-): TeamMatchesResourceState => {
+  action: ITeamMatchesResourceAction
+): ITeamMatchesResourceState => {
   switch (action.type) {
     case TeamMatchesActionTypes.FETCH_TEAM_MATCHES:
       return { loadingTeamMatches: true, errorTeamMatches: null, teamMatches: state.teamMatches };

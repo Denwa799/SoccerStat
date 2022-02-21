@@ -14,18 +14,10 @@ import {
   teamMatchesResourceSelector,
   teamResourceSelector,
 } from '../../../../store/selectors/selectors';
+import { IDataSource } from '../../../../types/pages/pages';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
-
-interface IDataSource {
-  key: number;
-  status: string;
-  date: string;
-  homeTeam: string;
-  awayTeam: string;
-  score: string;
-}
 
 const TeamResource: React.FC = () => {
   const { teamMatches, errorTeamMatches, loadingTeamMatches } = useTypedSelector(
