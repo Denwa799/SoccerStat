@@ -11,6 +11,7 @@ import moment from 'moment';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { competitionResourceSelector } from '../../../../store/selectors/selectors';
 import { IDataSource } from '../../../../types/pages/pages';
+import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -31,13 +32,17 @@ const CompetitionResource: React.FC = () => {
   useEffect(() => {
     if (Object.keys(competition).length != 0 && competition.matches) {
       const matches = competition.matches.map((match) => {
+        let score = `${match.score.fullTime.homeTeam} : ${match.score.fullTime.awayTeam}`;
+        if (match.score.fullTime.homeTeam === null && match.score.fullTime.awayTeam === null) {
+          score = 'Неизвестно';
+        }
         return {
           key: match.id,
-          status: match.status,
+          status: matchStatusTranslation(match.status),
           date: `${new Date(match.utcDate).toLocaleString()} `,
           homeTeam: match.homeTeam.name,
           awayTeam: match.awayTeam.name,
-          score: `${match.score.fullTime.homeTeam} : ${match.score.fullTime.awayTeam}`,
+          score: score,
         };
       });
       setDataSource(matches);

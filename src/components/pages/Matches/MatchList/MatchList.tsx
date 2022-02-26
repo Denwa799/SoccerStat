@@ -8,6 +8,7 @@ import noImage from '../../../../assets/img/noImage.jpg';
 import { Link } from 'react-router-dom';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { matchListSelector } from '../../../../store/selectors/selectors';
+import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
 
 const { Meta } = Card;
 
@@ -41,7 +42,7 @@ const MatchList: React.FC = () => {
                 description={
                   match.status == 'FINISHED'
                     ? match.score.fullTime.homeTeam + ' VS ' + match.score.fullTime.awayTeam
-                    : 'Статус: ' + match.status
+                    : 'Статус: ' + matchStatusTranslation(match.status)
                 }
               />
             </Card>

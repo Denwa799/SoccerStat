@@ -8,6 +8,7 @@ import { Row, Col, Typography } from 'antd';
 import Container from '../../../UI/Container/Container';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { matchResourceSelector } from '../../../../store/selectors/selectors';
+import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
 
 const { Title } = Typography;
 
@@ -46,7 +47,7 @@ const MatchResource: React.FC = () => {
             </Row>
             <Row className={styles.MatchDescriptionItems}>
               <Col xl={12} lg={12} md={24} sm={24} xs={24}>
-                <Title level={3}>Статус: {match.match.status}</Title>
+                <Title level={3}>Статус: {matchStatusTranslation(match.match.status)}</Title>
               </Col>
               <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                 <Title level={3}>
