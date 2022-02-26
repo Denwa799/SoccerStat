@@ -8,6 +8,7 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       title: 'Статус',
       dataIndex: 'status',
       key: 'status',
+      responsive: ['sm'],
     },
     {
       title: 'Дата и время',
@@ -15,14 +16,9 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       key: 'date',
     },
     {
-      title: 'Домашняя команда',
-      dataIndex: `homeTeam`,
-      key: 'homeTeam',
-    },
-    {
-      title: 'Команда противника',
-      dataIndex: `awayTeam`,
-      key: 'awayTeam',
+      title: 'Хозяева VS Гости',
+      dataIndex: `teams`,
+      key: 'teams',
     },
     {
       title: 'Счет',
@@ -30,7 +26,7 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       key: 'score',
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} scroll={{ x: '550px' }} />;
+  return <Table columns={columns} dataSource={dataSource} scroll={{ x: '320px' }} />;
 };
 
 export default AppTable;

@@ -5,8 +5,7 @@ export interface IAppTable {
     key: number;
     status: string;
     date: string;
-    awayTeam: string;
-    homeTeam: string;
+    teams: string;
     score: string;
   }>;
 }
@@ -15,6 +14,7 @@ export interface IAppTableColumn {
   title: string;
   dataIndex: string;
   key: string;
+  responsive?: any; // Сюда приходят брейкпоинты от библиотеки ant design
 }
 
 export interface IErrorLoading {

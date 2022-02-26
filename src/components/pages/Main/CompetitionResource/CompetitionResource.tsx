@@ -40,8 +40,7 @@ const CompetitionResource: React.FC = () => {
           key: match.id,
           status: matchStatusTranslation(match.status),
           date: `${new Date(match.utcDate).toLocaleString()} `,
-          homeTeam: match.homeTeam.name,
-          awayTeam: match.awayTeam.name,
+          teams: `${match.homeTeam.name} VS ${match.awayTeam.name}`,
           score: score,
         };
       });

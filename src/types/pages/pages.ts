@@ -2,7 +2,6 @@ export interface IDataSource {
   key: number;
   status: string;
   date: string;
-  homeTeam: string;
-  awayTeam: string;
+  teams: string;
   score: string;
 }
