@@ -41,9 +41,9 @@ const TeamList: React.FC = () => {
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
-  const lastCompetitionIndex = currentPage * teamsPerPage;
-  const firstCompetitionIndex = lastCompetitionIndex - teamsPerPage;
-  const currentTeamList = filteredTeams.slice(firstCompetitionIndex, lastCompetitionIndex);
+  const lastTeamIndex = currentPage * teamsPerPage;
+  const firstTeamIndex = lastTeamIndex - teamsPerPage;
+  const currentTeamList = filteredTeams.slice(firstTeamIndex, lastTeamIndex);
 
   const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
