@@ -38,7 +38,7 @@ const CompetitionList: React.FC = () => {
 
   const lastCompetitionIndex = currentPage * competitionsPerPage;
   const firstCompetitionIndex = lastCompetitionIndex - competitionsPerPage;
-  const currentCompetition = filteredCompetitions.slice(
+  const currentCompetitionList = filteredCompetitions.slice(
     firstCompetitionIndex,
     lastCompetitionIndex
   );
@@ -64,14 +64,14 @@ const CompetitionList: React.FC = () => {
     setIsOpen(true);
   };
 
-  const handlePageChange = (pageNumber: number, pageSize: any) => {
+  const handlePageChange = (pageNumber: number, pageSize: number) => {
     setCurrentPage(pageNumber);
     setCompetitionsPerPage(pageSize);
   };
 
   function renderCards() {
     if (competitions.length != 0 && filteredCompetitions.length != 0) {
-      return currentCompetition.map((competition) => (
+      return currentCompetitionList.map((competition) => (
         <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${competition.id}`}>
             <Card

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './TeamList.module.css';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Pagination, Row } from 'antd';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchTeams } from '../../../../store/action-creators/TeamList';
@@ -21,6 +21,9 @@ const TeamList: React.FC = () => {
   const paramsName = searchParams.get('name') || '';
   const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [teamsPerPage, setTeamsPerPage] = useState(6);
+
   const filteredTeams = teams.filter((team) => {
     return team.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
@@ -38,6 +41,10 @@ const TeamList: React.FC = () => {
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
+  const lastCompetitionIndex = currentPage * teamsPerPage;
+  const firstCompetitionIndex = lastCompetitionIndex - teamsPerPage;
+  const currentTeamList = filteredTeams.slice(firstCompetitionIndex, lastCompetitionIndex);
+
   const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
@@ -54,9 +61,14 @@ const TeamList: React.FC = () => {
     setIsOpen(true);
   };
 
+  const handlePageChange = (pageNumber: number, pageSize: number) => {
+    setCurrentPage(pageNumber);
+    setTeamsPerPage(pageSize);
+  };
+
   function renderCards() {
     if (teams.length != 0 && filteredTeams.length != 0) {
-      return filteredTeams.map((team) => (
+      return currentTeamList.map((team) => (
         <Col key={team.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${team.id}`}>
             <Card
@@ -104,6 +116,20 @@ const TeamList: React.FC = () => {
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
         {renderCards()}
+      </Row>
+      <Row className={styles.PaginationRow}>
+        <Col span={24}>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={6}
+            size={window.innerWidth <= 420 ? 'small' : 'default'}
+            responsive={false}
+            total={filteredTeams.length}
+            showSizeChanger={true}
+            onChange={handlePageChange}
+            pageSizeOptions={['6', '9', '15', '21']}
+          />
+        </Col>
       </Row>
     </div>
   );
