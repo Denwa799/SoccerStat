@@ -26,7 +26,17 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       key: 'score',
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} scroll={{ x: '320px' }} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      scroll={{ x: '320px' }}
+      pagination={{
+        size: window.innerWidth <= 420 ? 'small' : 'default',
+        position: ['bottomLeft'],
+      }}
+    />
+  );
 };
 
 export default AppTable;

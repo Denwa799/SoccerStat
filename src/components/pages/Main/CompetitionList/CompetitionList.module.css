@@ -13,8 +13,9 @@
     object-position: center;
 }
 
-.Pagination {
+.PaginationRow {
     padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 @media (max-width: 1200px) {

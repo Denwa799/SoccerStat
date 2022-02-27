@@ -120,11 +120,13 @@ const CompetitionList: React.FC = () => {
       <Row className={styles.Cards} gutter={[16, 16]}>
         {renderCards()}
       </Row>
-      <Row className={styles.Pagination}>
+      <Row className={styles.PaginationRow}>
         <Col span={24}>
           <Pagination
             defaultCurrent={1}
             defaultPageSize={6}
+            size={window.innerWidth <= 420 ? 'small' : 'default'}
+            responsive={false}
             total={filteredCompetitions.length}
             showSizeChanger={true}
             onChange={handlePageChange}
