@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CompetitionList.module.css';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Pagination, Row } from 'antd';
 import noImage from '../../../../assets/img/noImage.jpg';
 import { useDispatch } from 'react-redux';
 import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
@@ -21,6 +21,9 @@ const CompetitionList: React.FC = () => {
   const paramsName = searchParams.get('name') || '';
   const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [competitionsPerPage, setCompetitionsPerPage] = useState(6);
+
   const filteredCompetitions = competitions.filter((competition) => {
     return competition.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
@@ -32,6 +35,13 @@ const CompetitionList: React.FC = () => {
   useEffect(() => {
     setValue(paramsName.replace(/-/g, ' '));
   }, [paramsName]);
+
+  const lastCompetitionIndex = currentPage * competitionsPerPage;
+  const firstCompetitionIndex = lastCompetitionIndex - competitionsPerPage;
+  const currentCompetition = filteredCompetitions.slice(
+    firstCompetitionIndex,
+    lastCompetitionIndex
+  );
 
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -54,9 +64,14 @@ const CompetitionList: React.FC = () => {
     setIsOpen(true);
   };
 
+  const handlePageChange = (pageNumber: number, pageSize: any) => {
+    setCurrentPage(pageNumber);
+    setCompetitionsPerPage(pageSize);
+  };
+
   function renderCards() {
     if (competitions.length != 0 && filteredCompetitions.length != 0) {
-      return filteredCompetitions.map((competition) => (
+      return currentCompetition.map((competition) => (
         <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${competition.id}`}>
             <Card
@@ -104,6 +119,18 @@ const CompetitionList: React.FC = () => {
       </Row>
       <Row className={styles.Cards} gutter={[16, 16]}>
         {renderCards()}
+      </Row>
+      <Row className={styles.Pagination}>
+        <Col span={24}>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={6}
+            total={filteredCompetitions.length}
+            showSizeChanger={true}
+            onChange={handlePageChange}
+            pageSizeOptions={['6', '9', '15', '21']}
+          />
+        </Col>
       </Row>
     </div>
   );
