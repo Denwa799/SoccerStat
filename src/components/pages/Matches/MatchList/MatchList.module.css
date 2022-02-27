@@ -13,6 +13,11 @@
     object-position: center;
 }
 
+.PaginationRow {
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
 @media (max-width: 1200px) {
     .CardImg {
         width: 100%;

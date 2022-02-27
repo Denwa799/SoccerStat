@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './MatchList.module.css';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Pagination, Row } from 'antd';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchMatches } from '../../../../store/action-creators/MatchList';
@@ -16,13 +16,25 @@ const MatchList: React.FC = () => {
   const { matches, error, loading } = useTypedSelector(matchListSelector);
   const dispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [matchesPerPage, setMatchesPerPage] = useState(6);
+
   useEffect(() => {
     dispatch(fetchMatches());
   }, []);
 
+  const lastMatchIndex = currentPage * matchesPerPage;
+  const firstMatchIndex = lastMatchIndex - matchesPerPage;
+  const currentMatchList = matches.slice(firstMatchIndex, lastMatchIndex);
+
+  const handlePageChange = (pageNumber: number, pageSize: number) => {
+    setCurrentPage(pageNumber);
+    setMatchesPerPage(pageSize);
+  };
+
   function renderCards() {
     if (matches.length != 0) {
-      return matches.map((match) => (
+      return currentMatchList.map((match) => (
         <Col key={match.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${match.id}`}>
             <Card
@@ -62,6 +74,20 @@ const MatchList: React.FC = () => {
     <div className={styles.MatchList}>
       <Row className={styles.Cards} gutter={[16, 16]}>
         {renderCards()}
+      </Row>
+      <Row className={styles.PaginationRow}>
+        <Col span={24}>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={6}
+            size={window.innerWidth <= 420 ? 'small' : 'default'}
+            responsive={false}
+            total={matches.length}
+            showSizeChanger={true}
+            onChange={handlePageChange}
+            pageSizeOptions={['6', '9', '15', '21']}
+          />
+        </Col>
       </Row>
     </div>
   );
