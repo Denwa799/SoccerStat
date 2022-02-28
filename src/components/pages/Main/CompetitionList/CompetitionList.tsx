@@ -13,29 +13,36 @@ import { competitionListSelector } from '../../../../store/selectors/selectors';
 const { Meta } = Card;
 
 const CompetitionList: React.FC = () => {
+  // Получение данных из store
   const { competitions, error, loading } = useTypedSelector(competitionListSelector);
   const dispatch = useDispatch();
 
+  // Локальный стейт для реализации поиска
   const [isOpen, setIsOpen] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const paramsName = searchParams.get('name') || '';
   const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
+  // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [competitionsPerPage, setCompetitionsPerPage] = useState(6);
 
+  // Фильтрация данных исходя из поиска
   const filteredCompetitions = competitions.filter((competition) => {
     return competition.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
 
+  // Диспатч списка соревнований
   useEffect(() => {
     dispatch(fetchCompetitions());
   }, []);
 
+  // Установка значения в параметры строки url
   useEffect(() => {
     setValue(paramsName.replace(/-/g, ' '));
   }, [paramsName]);
 
+  // Переменные для реализации пагинации
   const lastCompetitionIndex = currentPage * competitionsPerPage;
   const firstCompetitionIndex = lastCompetitionIndex - competitionsPerPage;
   const currentCompetitionList = filteredCompetitions.slice(
@@ -43,11 +50,13 @@ const CompetitionList: React.FC = () => {
     lastCompetitionIndex
   );
 
+  // Обработка ввода в поисковой строке
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
+  // Обработка нажатия на элемент автодополнения в поисковой строке
   const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
@@ -55,20 +64,24 @@ const CompetitionList: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  // Обработка нажатия кнопки очищения поисковой строки
   const valueClearHandler = () => {
     setSearchParams({ name: '' });
     setValue('');
   };
 
+  // Обработка нажатия на поисковую строку
   const inputClickHandler = () => {
     setIsOpen(true);
   };
 
-  const handlePageChange = (pageNumber: number, pageSize: number) => {
+  // Обработка нажатия на кнопки смены страницы в пагинации
+  const pageChangeHandler = (pageNumber: number, pageSize: number) => {
     setCurrentPage(pageNumber);
     setCompetitionsPerPage(pageSize);
   };
 
+  // Отрисовка карточек соревнований
   function renderCards() {
     if (competitions.length != 0 && filteredCompetitions.length != 0) {
       return currentCompetitionList.map((competition) => (
@@ -96,6 +109,7 @@ const CompetitionList: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loading || error) {
     return <ErrorLoading loading={loading} error={error} />;
   }
@@ -129,7 +143,7 @@ const CompetitionList: React.FC = () => {
             responsive={false}
             total={filteredCompetitions.length}
             showSizeChanger={true}
-            onChange={handlePageChange}
+            onChange={pageChangeHandler}
             pageSizeOptions={['6', '9', '15', '21']}
           />
         </Col>

@@ -13,25 +13,31 @@ import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation
 const { Meta } = Card;
 
 const MatchList: React.FC = () => {
+  // Получение данных из store
   const { matches, error, loading } = useTypedSelector(matchListSelector);
   const dispatch = useDispatch();
 
+  // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [matchesPerPage, setMatchesPerPage] = useState(6);
 
+  // Диспатч списка матчей
   useEffect(() => {
     dispatch(fetchMatches());
   }, []);
 
+  // Переменные для реализации пагинации
   const lastMatchIndex = currentPage * matchesPerPage;
   const firstMatchIndex = lastMatchIndex - matchesPerPage;
   const currentMatchList = matches.slice(firstMatchIndex, lastMatchIndex);
 
-  const handlePageChange = (pageNumber: number, pageSize: number) => {
+  // Обработка нажатия на кнопки смены страницы в пагинации
+  const pageChangeHandler = (pageNumber: number, pageSize: number) => {
     setCurrentPage(pageNumber);
     setMatchesPerPage(pageSize);
   };
 
+  // Отрисовка карточек матчей
   function renderCards() {
     if (matches.length != 0) {
       return currentMatchList.map((match) => (
@@ -66,6 +72,7 @@ const MatchList: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loading || error) {
     return <ErrorLoading loading={loading} error={error} />;
   }
@@ -84,7 +91,7 @@ const MatchList: React.FC = () => {
             responsive={false}
             total={matches.length}
             showSizeChanger={true}
-            onChange={handlePageChange}
+            onChange={pageChangeHandler}
             pageSizeOptions={['6', '9', '15', '21']}
           />
         </Col>

@@ -13,14 +13,17 @@ import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation
 const { Title } = Typography;
 
 const MatchResource: React.FC = () => {
+  // Получение данных из store
   const { match, error, loading } = useTypedSelector(matchResourceSelector);
   const dispatch = useDispatch();
+
   const params = useParams();
 
   useEffect(() => {
     dispatch(fetchMatch(params.id));
   }, []);
 
+  // Отрисовка содержимого страницы
   function renderPage() {
     if (Object.keys(match).length != 0 && match.match && match.head2head) {
       return (
@@ -77,6 +80,7 @@ const MatchResource: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loading || error) {
     return (
       <Container>

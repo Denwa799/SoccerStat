@@ -21,15 +21,19 @@ const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
 const TeamResource: React.FC = () => {
+  // Получение данных из store
   const { teamMatches, errorTeamMatches, loadingTeamMatches } = useTypedSelector(
     teamMatchesResourceSelector
   );
   const { team, errorTeam, loadingTeam } = useTypedSelector(teamResourceSelector);
   const dispatch = useDispatch();
+
+  // Локальный стейт для таблицы
   const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useParams();
 
+  // Получение команды, матчей и данных фильтрации из параметров строки url
   useEffect(() => {
     const dateFromParam = searchParams.get('dateFrom') || '';
     const dateToParam = searchParams.get('dateTo') || '';
@@ -37,6 +41,7 @@ const TeamResource: React.FC = () => {
     dispatch(fetchTeam(params.id));
   }, []);
 
+  // Отправка полученных данных в таблицу
   useEffect(() => {
     if (Object.keys(teamMatches).length != 0 && teamMatches.matches) {
       const matches = teamMatches.matches.map((match) => {
@@ -56,12 +61,14 @@ const TeamResource: React.FC = () => {
     }
   }, [teamMatches]);
 
+  // Обработка изменении дат для фильтрации
   function onFilterChange(dates: any, dateStrings: string[]) {
     // Невозможно определить dates, так как в него приходит объект даты moment
     setSearchParams({ dateFrom: dateStrings[0], dateTo: dateStrings[1] });
     dispatch(fetchTeamMatches(params.id, dateStrings[0], dateStrings[1]));
   }
 
+  // Отрисовка содержимого таблицы
   function renderTable() {
     if (loadingTeamMatches || errorTeamMatches) {
       return <ErrorLoading loading={loadingTeamMatches} error={errorTeamMatches} />;
@@ -72,6 +79,7 @@ const TeamResource: React.FC = () => {
     }
   }
 
+  // Отрисовка содержимого страницы
   function renderPage() {
     if (Object.keys(team).length != 0 && Object.keys(teamMatches).length != 0) {
       return (
@@ -93,6 +101,7 @@ const TeamResource: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loadingTeam || errorTeam) {
     return (
       <Container>

@@ -17,18 +17,23 @@ const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
 const CompetitionResource: React.FC = () => {
+  // Получение данных из store
   const { competition, error, loading } = useTypedSelector(competitionResourceSelector);
   const dispatch = useDispatch();
+
+  // Локальный стейт для таблицы
   const [dataSource, setDataSource] = useState<IDataSource[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useParams();
 
+  // Получение матчей и данных фильтрации из параметров строки url
   useEffect(() => {
     const dateFromParam = searchParams.get('dateFrom') || '';
     const dateToParam = searchParams.get('dateTo') || '';
     dispatch(fetchCompetition(params.id, dateFromParam, dateToParam));
   }, []);
 
+  // Отправка полученных данных в таблицу
   useEffect(() => {
     if (Object.keys(competition).length != 0 && competition.matches) {
       const matches = competition.matches.map((match) => {
@@ -48,12 +53,14 @@ const CompetitionResource: React.FC = () => {
     }
   }, [competition]);
 
+  // Обработка изменении дат для фильтрации
   function onFilterChange(dates: any, dateStrings: string[]) {
     // Невозможно определить dates, так как в него приходит объект даты moment
     setSearchParams({ dateFrom: dateStrings[0], dateTo: dateStrings[1] });
     dispatch(fetchCompetition(params.id, dateStrings[0], dateStrings[1]));
   }
 
+  // Отрисовка содержимого страницы
   function renderPage() {
     if (Object.keys(competition).length != 0 && competition.competition) {
       return (
@@ -75,6 +82,7 @@ const CompetitionResource: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loading || error) {
     return (
       <Container>

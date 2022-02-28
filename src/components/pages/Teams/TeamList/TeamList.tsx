@@ -13,38 +13,47 @@ import { teamListSelector } from '../../../../store/selectors/selectors';
 const { Meta } = Card;
 
 const TeamList: React.FC = () => {
+  // Получение данных из store
   const { teams, error, loading } = useTypedSelector(teamListSelector);
   const dispatch = useDispatch();
 
+  // Локальный стейт для реализации поиска
   const [isOpen, setIsOpen] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const paramsName = searchParams.get('name') || '';
   const [value, setValue] = useState(paramsName.replace(/-/g, ' '));
 
+  // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [teamsPerPage, setTeamsPerPage] = useState(6);
 
+  // Фильтрация данных исходя из поиска
   const filteredTeams = teams.filter((team) => {
     return team.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
 
+  // Диспатч списка команд
   useEffect(() => {
     dispatch(fetchTeams());
   }, []);
 
+  // Установка значения в параметры строки url
   useEffect(() => {
     setValue(paramsName.replace(/-/g, ' '));
   }, [paramsName]);
 
+  // Переменные для реализации пагинации
+  const lastTeamIndex = currentPage * teamsPerPage;
+  const firstTeamIndex = lastTeamIndex - teamsPerPage;
+  const currentTeamList = filteredTeams.slice(firstTeamIndex, lastTeamIndex);
+
+  // Обработка ввода в поисковой строке
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setSearchParams({ name: e.target.value.replace(/ /g, '-') });
   };
 
-  const lastTeamIndex = currentPage * teamsPerPage;
-  const firstTeamIndex = lastTeamIndex - teamsPerPage;
-  const currentTeamList = filteredTeams.slice(firstTeamIndex, lastTeamIndex);
-
+  // Обработка нажатия на элемент автодополнения в поисковой строке
   const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
@@ -52,20 +61,24 @@ const TeamList: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  // Обработка нажатия кнопки очищения поисковой строки
   const valueClearHandler = () => {
     setSearchParams({ name: '' });
     setValue('');
   };
 
+  // Обработка нажатия на поисковую строку
   const inputClickHandler = () => {
     setIsOpen(true);
   };
 
-  const handlePageChange = (pageNumber: number, pageSize: number) => {
+  // Обработка нажатия на кнопки смены страницы в пагинации
+  const pageChangeHandler = (pageNumber: number, pageSize: number) => {
     setCurrentPage(pageNumber);
     setTeamsPerPage(pageSize);
   };
 
+  // Отрисовка карточек команд
   function renderCards() {
     if (teams.length != 0 && filteredTeams.length != 0) {
       return currentTeamList.map((team) => (
@@ -93,6 +106,7 @@ const TeamList: React.FC = () => {
     }
   }
 
+  // Обработка ошибки и загрузки
   if (loading || error) {
     return <ErrorLoading loading={loading} error={error} />;
   }
@@ -126,7 +140,7 @@ const TeamList: React.FC = () => {
             responsive={false}
             total={filteredTeams.length}
             showSizeChanger={true}
-            onChange={handlePageChange}
+            onChange={pageChangeHandler}
             pageSizeOptions={['6', '9', '15', '21']}
           />
         </Col>
