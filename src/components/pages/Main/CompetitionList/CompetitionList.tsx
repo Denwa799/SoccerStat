@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from './CompetitionList.module.css';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { Card, Col, Pagination, Row } from 'antd';
-import noImage from '../../../../assets/img/noImage.jpg';
 import { useDispatch } from 'react-redux';
 import { fetchCompetitions } from '../../../../store/action-creators/CompetitionList';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -87,17 +86,12 @@ const CompetitionList: React.FC = () => {
       return currentCompetitionList.map((competition) => (
         <Col key={competition.id} xl={8} lg={12} md={24} sm={24} xs={24}>
           <Link to={`${competition.id}`}>
-            <Card
-              hoverable
-              cover={
-                <img
-                  className={styles.CardImg}
-                  src={competition.emblemUrl ? competition.emblemUrl : noImage}
-                  alt={competition.code}
-                />
-              }
-            >
-              <Meta title={competition.name} />
+            <Card className={styles.Card} hoverable>
+              <Meta
+                className={styles.Meta}
+                title={competition.name}
+                description={competition.area.name}
+              />
             </Card>
           </Link>
         </Col>
