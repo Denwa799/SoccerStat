@@ -9,7 +9,7 @@
 .CardImg {
     width: 369px;
     height: 199px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
