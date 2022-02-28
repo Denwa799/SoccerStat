@@ -21,7 +21,7 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       key: 'teams',
     },
     {
-      title: 'Счет',
+      title: 'Счет (доп время) (пенальти)',
       dataIndex: `score`,
       key: 'score',
     },

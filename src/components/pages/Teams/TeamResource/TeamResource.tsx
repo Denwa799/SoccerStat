@@ -46,7 +46,19 @@ const TeamResource: React.FC = () => {
   useEffect(() => {
     if (Object.keys(teamMatches).length != 0 && teamMatches.matches) {
       const matches = teamMatches.matches.map((match) => {
-        let score = `${match.score.fullTime.homeTeam} : ${match.score.fullTime.awayTeam}`;
+        const extraTimeHomeScore = match.score.extraTime.homeTeam
+          ? `${match.score.extraTime.homeTeam}`
+          : '0';
+        const extraTimeAwayScore = match.score.extraTime.awayTeam
+          ? `${match.score.extraTime.awayTeam}`
+          : '0';
+        const penaltiesHomeScore = match.score.penalties.homeTeam
+          ? `${match.score.penalties.homeTeam}`
+          : '0';
+        const penaltiesAwayScore = match.score.penalties.awayTeam
+          ? `${match.score.penalties.awayTeam}`
+          : '0';
+        let score = `${match.score.fullTime.homeTeam}:${match.score.fullTime.awayTeam} (${extraTimeHomeScore}:${extraTimeAwayScore}) (${penaltiesHomeScore}:${penaltiesAwayScore})`;
         if (match.score.fullTime.homeTeam === null && match.score.fullTime.awayTeam === null) {
           score = 'Неизвестно';
         }
