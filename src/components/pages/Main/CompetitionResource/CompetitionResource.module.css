@@ -3,6 +3,7 @@
 }
 
 .Title {
+    padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 3px solid var(--primary-color);
 }

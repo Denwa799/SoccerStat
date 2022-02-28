@@ -4,8 +4,8 @@ import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchTeamMatches } from '../../../../store/action-creators/TeamMatchesResource';
 import { fetchTeam } from '../../../../store/action-creators/TeamResource';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { Typography, DatePicker } from 'antd';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Typography, DatePicker, Breadcrumb } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
@@ -16,6 +16,7 @@ import {
 } from '../../../../store/selectors/selectors';
 import { IDataSource } from '../../../../types/pages/pages';
 import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
+import { TEAMS_ROUTE } from '../../../../utils/routes';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -84,7 +85,13 @@ const TeamResource: React.FC = () => {
     if (Object.keys(team).length != 0 && Object.keys(teamMatches).length != 0) {
       return (
         <div>
-          <Title className={styles.Title}>{team.name}</Title>
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <Link to={TEAMS_ROUTE}>Команды</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>{team.name}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Title className={styles.Title}>Матчи</Title>
           <RangePicker
             className={styles.rangeFilter}
             onChange={onFilterChange}

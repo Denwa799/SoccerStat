@@ -3,12 +3,13 @@ import styles from './MatchResource.module.css';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchMatch } from '../../../../store/action-creators/MatchResource';
-import { useParams } from 'react-router-dom';
-import { Row, Col, Typography } from 'antd';
+import { Link, useParams } from 'react-router-dom';
+import { Row, Col, Typography, Breadcrumb } from 'antd';
 import Container from '../../../UI/Container/Container';
 import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { matchResourceSelector } from '../../../../store/selectors/selectors';
 import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
+import { MATCHES_ROUTE } from '../../../../utils/routes';
 
 const { Title } = Typography;
 
@@ -28,6 +29,14 @@ const MatchResource: React.FC = () => {
     if (Object.keys(match).length != 0 && match.match && match.head2head) {
       return (
         <div>
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <Link to={MATCHES_ROUTE}>Матчи</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              {match.head2head.homeTeam.name} VS {match.head2head.awayTeam.name}
+            </Breadcrumb.Item>
+          </Breadcrumb>
           <Title className={styles.Title}>
             {match.head2head.homeTeam.name} VS {match.head2head.awayTeam.name}
           </Title>

@@ -3,8 +3,8 @@ import styles from './CompetitionResource.module.css';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchCompetition } from '../../../../store/action-creators/CompetitionResource';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { Typography, DatePicker } from 'antd';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Typography, DatePicker, Breadcrumb } from 'antd';
 import Container from '../../../UI/Container/Container';
 import AppTable from '../../../UI/AppTable/AppTable';
 import moment from 'moment';
@@ -12,6 +12,7 @@ import ErrorLoading from '../../../UI/ErrorLoading/ErrorLoading';
 import { competitionResourceSelector } from '../../../../store/selectors/selectors';
 import { IDataSource } from '../../../../types/pages/pages';
 import { matchStatusTranslation } from '../../../../utils/matchStatusTranslation';
+import { MAIN_ROUTE } from '../../../../utils/routes';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -65,7 +66,13 @@ const CompetitionResource: React.FC = () => {
     if (Object.keys(competition).length != 0 && competition.competition) {
       return (
         <div>
-          <Title className={styles.Title}>{competition.competition.name}</Title>
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <Link to={MAIN_ROUTE}>Соревнования</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>{competition.competition.name}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Title className={styles.Title}>Матчи</Title>
           <RangePicker
             className={styles.rangeFilter}
             onChange={onFilterChange}
