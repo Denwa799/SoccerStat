@@ -34,6 +34,7 @@ const AppTable: React.FC<IAppTable> = ({ dataSource }) => {
       pagination={{
         size: window.innerWidth <= 420 ? 'small' : 'default',
         position: ['bottomLeft'],
+        showSizeChanger: true,
       }}
     />
   );
