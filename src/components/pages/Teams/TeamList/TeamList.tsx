@@ -26,44 +26,78 @@ const TeamList: React.FC = () => {
   // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [teamsPerPage, setTeamsPerPage] = useState(6);
+  const paramsPage = searchParams.get('page') || '';
+
+  // Объект параметров
+  const params = { name: '', page: '1' };
 
   // Фильтрация данных исходя из поиска
   const filteredTeams = teams.filter((team) => {
     return team.name.toLowerCase().includes(value.toLocaleLowerCase());
   });
 
-  // Диспатч списка команд
-  useEffect(() => {
-    dispatch(fetchTeams());
-  }, []);
-
-  // Установка значения в параметры строки url
-  useEffect(() => {
-    setValue(paramsName.replace(/-/g, ' '));
-  }, [paramsName]);
-
   // Переменные для реализации пагинации
   const lastTeamIndex = currentPage * teamsPerPage;
   const firstTeamIndex = lastTeamIndex - teamsPerPage;
   const currentTeamList = filteredTeams.slice(firstTeamIndex, lastTeamIndex);
+  const currentPageValue = parseInt(paramsPage);
+
+  useEffect(() => {
+    dispatch(fetchTeams());
+
+    // Установка значения поиска из параметров и установка страницы пагинации на 1
+    params.name = paramsName;
+    params.page = '1';
+    setSearchParams(params);
+    setCurrentPage(1);
+  }, []);
+
+  // Установка значения в поисковую строку из параметров url
+  useEffect(() => {
+    setValue(paramsName.replace(/-/g, ' '));
+  }, [paramsName]);
+
+  // При обнулении параметра страницы в url устанавливает значение на 1
+  useEffect(() => {
+    if (!paramsPage) {
+      params.name = paramsName;
+      params.page = '1';
+      setCurrentPage(1);
+      setSearchParams(params);
+    }
+  }, [paramsPage]);
 
   // Обработка ввода в поисковой строке
   const itemChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    setSearchParams({ name: e.target.value.replace(/ /g, '-') });
+    params.name = e.target.value.replace(/ /g, '-');
+    params.page = paramsPage;
+    setSearchParams(params);
+
+    // Условие необходимо, чтобы небыло бага с поиском при активной пагинации
+    if (params.name) {
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(parseInt(paramsPage));
+    }
   };
 
   // Обработка нажатия на элемент автодополнения в поисковой строке
   const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
-    setSearchParams({ name: target.textContent!.replace(/ /g, '-') });
+    params.name = target.textContent!.replace(/ /g, '-');
+    params.page = paramsPage;
+    setSearchParams(params);
     setValue(paramsName.replace(/-/g, ' '));
     setIsOpen(!isOpen);
   };
 
   // Обработка нажатия кнопки очищения поисковой строки
   const valueClearHandler = () => {
-    setSearchParams({ name: '' });
+    params.name = '';
+    params.page = paramsPage;
+    setSearchParams(params);
+    setCurrentPage(parseInt(paramsPage));
     setValue('');
   };
 
@@ -76,6 +110,9 @@ const TeamList: React.FC = () => {
   const pageChangeHandler = (pageNumber: number, pageSize: number) => {
     setCurrentPage(pageNumber);
     setTeamsPerPage(pageSize);
+    params.name = paramsName;
+    params.page = `${pageNumber}`;
+    setSearchParams(params);
   };
 
   // Отрисовка карточек команд
@@ -134,6 +171,7 @@ const TeamList: React.FC = () => {
       <Row className={styles.PaginationRow}>
         <Col span={24}>
           <Pagination
+            current={currentPageValue}
             defaultCurrent={1}
             defaultPageSize={6}
             size={window.innerWidth <= 420 ? 'small' : 'default'}
